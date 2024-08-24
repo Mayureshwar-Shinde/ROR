@@ -5,6 +5,9 @@ module Build
   class DatabaseBuilder
 
     def reset_data
+      Appointment.destroy_all
+      Note.destroy_all
+      Case.destroy_all
       User.destroy_all
     end
 
@@ -12,7 +15,7 @@ module Build
       default_avatar_path = Rails.root.join('app/assets/images/case_manager_avatar.png')
       (1..10).each do
         FactoryBot.create(:case_manager)
-        4.times do
+        (1..4).each do
           @case = FactoryBot.build(:case)
           @case.user_id = User.last.id
           @case.save

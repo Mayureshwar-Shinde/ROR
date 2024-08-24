@@ -25,14 +25,21 @@ Rails.application.routes.draw do
     get '/avatars/new', to: 'avatars#new', as: 'new_avatar'
     put '/avatars/create', to: 'avatars#create', as: 'update_avatar'
     delete '/avatars/destroy', to: 'avatars#destroy', as: 'delete_avatar'
-    resources :cases
+    resources :cases do
+      resources :notes
+      resources :appointments
+    end
+    get '/my_appointments', to: 'appointments#my_appointments', as: 'my_appointments'
   end
 
   namespace :dispute_analysts do
     get '/avatars/new', to: 'avatars#new', as: 'new_avatar'
     put '/avatars/create', to: 'avatars#create', as: 'update_avatar'
     delete '/avatars/destroy', to: 'avatars#destroy', as: 'delete_avatar'
-    resources :cases
+    resources :cases do
+      resources :notes
+      resources :appointments
+    end
   end
 
 end

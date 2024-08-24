@@ -1,0 +1,91 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.4); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 Case(#{Case.find(params[:case_id]).case_number}) Appointments
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            %th ID
+            %th Date
+            %th Start
+            %th End
+            %th Scheduler
+            %th Schedulee
+            %th Status
+            %th Edit
+          %tbody
+            - @appointments.each do |appointment|
+              %tr
+                %td= appointment.id
+                %td= appointment.date.strftime("%d %B %Y")
+                %td= appointment.start_time.strftime("%l:%M%P")
+                %td= appointment.end_time.strftime("%l:%M%P")
+                %td #{appointment.scheduler.first_name} #{appointment.scheduler.last_name}
+                %td #{appointment.schedulee.first_name} #{appointment.schedulee.last_name}
+                %td= appointment.status.capitalize
+                %td.text-center
+                  - unless appointment.status == 'completed'
+                    %a.btn.btn-warning{href: edit_case_managers_case_appointment_path(case_id:appointment.case.id, id:appointment.id), style: "font-size:10px;"}
+                      %i.fa.fa-pen
+                  - else
+                    %a.btn.btn-warning.disabled{href:'#', style: "font-size:10px;"}
+                      %i.fa.fa-pen
+
+
+-#
+
+  #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+    .modal-dialog
+      .modal-content.p-4
+        .modal-header
+          %h1#exampleModalLabel.modal-title.fs-5 Update Appointment
+          %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+        .modal-body
+
+          = form_with model: @appointment, url: case_managers_case_appointments_path(case_id: @appointment.case_id), method: :put do |form|
+            = form.label :date
+            = form.date_field :date, class: 'form-control'
+            %br/
+            = form.label :start_time
+            = form.time_field :start_time, class: 'form-control'
+            %br/
+            = form.label :end_time
+            = form.time_field :end_time, class: 'form-control'
+            %br/
+            = form.label :status
+            = form.select(:status, [ ['Scheduled','scheduled'], ['Cancelled','cancelled']], {}, {class: "form-select"})
+
+            %br/
+            .modal-footer
+              %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+              .text-center{"data-bs-dismiss" => "modal", type: "button"}
+                = form.submit "Change Status", class: 'btn btn-warning'
+
+
+
+
+
+
+
+-#
+
+                - if appointment.user_id == current_case_manager.id
+                  %td
+                    = link_to edit_case_managers_case_note_path(:id => appointment.id, :case_id => @case.id), class: 'btn btn-primary', style:"font-size:11px;" do
+                      %i.fa.fa-pen
+                  %td
+                    = button_to case_managers_case_note_path(:id => appointment.id, :case_id => @case.id), method: :delete, class: "btn btn-danger", style: "font-size: 11px;" do
+                      %i.fa.fa-trash
+                - else
+                  %td
+                    %a{class: "btn btn-primary disabled", style: "font-size: 11px;"}
+                      %i.fa.fa-pen
+                  %td
+                    %a{class: "btn btn-danger disabled", style: "font-size: 11px;"}
+                      %i.fa.fa-trash
+        .text-center
+          %a{href: new_case_managers_case_note_path(@case), class: "btn btn-info"}
+            %i.fa.fa-plus
+            Add Note
+      %br

@@ -21,7 +21,7 @@ class CasesController < ApplicationController
   private
 
   def case_params
-    params.require(:case).permit(:title, :description, :status, :assigned_to_id, :resolved_by)
+    params.require(:case).permit(:title, :description, :status, :assigned_to_id)
   end
 
 end

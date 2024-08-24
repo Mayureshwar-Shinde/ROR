@@ -30,6 +30,9 @@
   .dropdown-container
     %a{href: case_managers_cases_path} List all Cases
     %A{href: new_case_managers_case_path} Create New Case
+  %a{href: case_managers_my_appointments_path}
+    %i.fa.fa-calendar
+    Appointments
   %hr.text-light
   .signout-container
     = button_to destroy_case_manager_session_path, method: :delete, :class => 'btn btn-danger', :style => "display:block; margin: 0 auto;" do

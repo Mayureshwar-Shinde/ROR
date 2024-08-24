@@ -4,13 +4,18 @@
   .row
     .col-md-10.offset-md-1.mx-auto
       %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.4); border-radius:10px; overflow-x: auto;"}
-        = form_for :status, url: case_managers_cases_path, method: :get do |form|
-          = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline", style: "width:50%;"})
-          = form.button(type: 'submit', class: 'btn btn-success ms-4') do
+        .display-6 Cases
+        %hr.border-2
+        = form_for :filter, url: case_managers_cases_path, method: :get do |form|
+          = form.label :status
+          = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
+          = form.label :case_number
+          = form.text_field :case_number, class: "form-control d-inline me-4", style: "width:200px;"
+          = form.button(type: 'submit', class: 'btn btn-success') do
             %i.fa.fa-filter
             Filter
 
-        %hr.border-4
+        %div{style:"margin:20px;"}
         %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
           %thead.table-dark
             %th= link_to 'Case no', sort: "case_number"
@@ -25,7 +30,7 @@
               %tr
                 %td
                   %a{:href => case_managers_case_path(c)}
-                    = "##{c.case_number}"
+                    = c.case_number
                 %td= c.title
                 %td= "#{c.user.first_name} #{c.user.last_name}"
                 %td
@@ -48,9 +53,7 @@
                       = c.status
                 %td= c.created_at.strftime("%B %d %Y, %l:%M%P")
                 %td= c.updated_at.strftime("%B %d %Y, %l:%M%P")
-
 %br
 %br
-.apple_pagination{style: "bottom:0;"}
+.apple_pagination
   = will_paginate @cases, :container => false
-

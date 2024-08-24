@@ -103,3 +103,6 @@ gem 'mini_magick'
 
 # adding pagination
 gem 'will_paginate', '~> 4.0'
+
+# adding simpleform
+gem 'simple_form'

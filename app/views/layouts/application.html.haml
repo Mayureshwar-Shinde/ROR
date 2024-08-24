@@ -24,7 +24,7 @@
     - else
       = render "shared/homepage_navbar"
     %div.alert-notice-wrapper{style: "margin-top: 60px;", class: (@user_signed_in ? "main-content" : "")}
-      %p.notice.text-center{style: "color:rgb(12,214,4); font-weight:bold;"}= notice
+      %p.notice.text-center{style: "color:rgb(42,204,2)"}= notice
       %p.alert.text-center{:style => "color:rgb(255,55,0);"}= alert
     %div{ class: (@user_signed_in ? "main-content" : "") }
       = yield

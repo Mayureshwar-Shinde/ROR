@@ -1,43 +1,57 @@
-.card.mx-auto.p-5.border-4.border-light{style: "width:700px;"}
-  %h2.card-header.display-6
-    = @case.case_number
-  .card-body
-    %h3.card-title
-      = @case.title
-    %p.card-text{style: "font-size:18px"}
-      = @case.description
-    %hr
-    %ul.list-unstyled.display-6{style: "font-size:16px"}
-      %li 
-        %strong.d-inline Status:
-        #{@case.status}
-      - if @case.status == 'Resolved'
-        %li
-          %strong Resolved by:
-          #{@case.resolved_by.first_name} #{@case.resolved_by.last_name}
-      %li
-        %strong Created by:
-        #{@case.user.first_name} #{@case.user.last_name}
-      %li
-        %strong Assigned to:
-        - if @case.assigned_to_id.nil?
-          Unassigned
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      .card.p-4{:style => "border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6
+          = @case.case_number
+        .card-body
+          %h4.card-title
+            = @case.title
+          %p.card-text{style: "font-size:15px"}
+            = @case.description
+          %hr
+          %ul.list-unstyled.display-6{style: "font-size:15px"}
+            %li 
+              %strong.d-inline Status:
+              #{@case.status}
+            %li
+              %strong Created by:
+              #{@case.user.first_name} #{@case.user.last_name}
+            %li
+              %strong Assigned to:
+              - if @case.assigned_to_id.nil?
+                Unassigned
+              - else
+                #{@case.assigned_to.first_name} #{@case.assigned_to.last_name}
+            %li
+              %strong Created at:
+              #{@case.created_at.strftime("%B %d %Y, %l:%M%P")}
+            - if @case.status == 'Resolved'
+              %li
+                %strong Resolved at:
+                #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
+            -else
+              %li
+                %strong Updated at:
+                #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
+          %hr
+          = link_to 'Back', :back, class: "btn btn-secondary me-2"
+          - if @case.status == 'closed'
+            %a{class: "btn btn-info disabled"}
+              %i.fa.fa-note
+              Notes
+          - else
+            %a{href: dispute_analysts_case_notes_path(@case), class: "btn btn-info"}
+              %i.fa.fa-file
+              Notes
+
+        - if @case.status == 'closed'
+          .signout-container
+            = link_to root_path, class: 'btn btn-primary disabled' do
+              %i.fa.fa-pen
+              Edit
         - else
-          #{@case.assigned_to.first_name} #{@case.assigned_to.last_name}
-      %li
-        %strong Created at:
-        #{@case.created_at.strftime("%B %d %Y, %l:%M%P")}
-      - if @case.status == 'Resolved'
-        %li
-          %strong Resolved at:
-          #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
-      -else
-        %li
-          %strong Updated at:
-          #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
-    %hr
-    = link_to 'Back', :back, class: "btn btn-secondary me-2"
-    - if @case.status == 'Closed'
-      .btn.btn-primary.disabled Edit
-    - else
-      %a.btn.btn-primary{href: edit_dispute_analysts_case_path(@case)} Edit
+          .signout-container
+            = link_to edit_dispute_analysts_case_path(@case), class: 'btn btn-primary' do
+              %i.fa.fa-pen
+              Edit

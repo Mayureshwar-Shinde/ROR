@@ -1,14 +1,8 @@
 .card.mx-auto.p-5.mb-5.border-4.border-light{:style => "max-width: 700px; background-color: rgba(255, 255, 255, 0.8);"}
   %h2.text-center Create New Case
   %br
-  = form_with model: @case, url: '/case_managers/cases', method: :post do |form|
-    .field.form-group
-      = form.label :title
-      = form.text_field :title, class: "form-control"
-      %br/
-    .field.form-group
-      = form.label :description
-      = form.text_area :description, class: "form-control"
-      %br/
+  = simple_form_for @case, url: '/case_managers/cases', method: :post  do |f|
+    = f.input :title
+    = f.input :description
     .text-center
-      = form.submit "Create Case", class: 'btn btn-success'
+      = f.button :submit, class: 'btn btn-success'

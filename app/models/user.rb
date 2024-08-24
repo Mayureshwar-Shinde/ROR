@@ -7,16 +7,19 @@ class User < ApplicationRecord
 
   validates :avatar, content_type: ['image/png', 'image/jpeg', 'image/jpg'],
                                      size: { less_than: 10.megabytes , message: 'is too large' }
-
   validates :first_name, :last_name, :age, :date_of_birth, :email, :encrypted_password, presence: true
   validates :age, numericality: { only_integer: true, greater_than: 17 }
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
   validate :date_validation
 
-  has_many :cases, dependent: :destroy
+  has_many :cases
 
   enum role_type: { case_manager: 1, dispute_analyst: 2 }
   enum status: { active: 1, suspended: 2 }
+
+  has_many :notes
+
+  has_many :appointments
 
   private
 
