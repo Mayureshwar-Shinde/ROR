@@ -20,6 +20,7 @@ class DisputeAnalysts::CasesController < ApplicationController
 
   def show
     @case = Case.find(params[:id])
+    @appointment = Appointment.new
   end
 
   def edit

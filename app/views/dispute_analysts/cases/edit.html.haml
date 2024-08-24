@@ -1,5 +1,5 @@
 .card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width:600px; background-color: rgba(255, 255, 255, 0.8);"}
-  %h2.text-center Update Case
+  %h2.text-center Change Status
   %br
   = simple_form_for @case, url: "/dispute_analysts/cases/#{@case.id}", method: :put do |form|
     = form.input :title, disabled: true
@@ -10,4 +10,4 @@
     .text-center
       = form.submit "Update", class: 'form-control btn btn-success'
     %br/
-    = link_to 'Back', :back, class: 'btn btn-primary', style: "margin-left:40%; width:20%;"
+    = link_to 'Back', :back, class: 'btn btn-outline-secondary', style: "margin-left:40%; width:20%;"

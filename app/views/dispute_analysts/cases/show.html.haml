@@ -35,23 +35,49 @@
                 %strong Updated at:
                 #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
           %hr
-          = link_to 'Back', :back, class: "btn btn-secondary me-2"
           - if @case.status == 'closed'
             %a{class: "btn btn-info disabled"}
               %i.fa.fa-note
               Notes
           - else
-            %a{href: dispute_analysts_case_notes_path(@case), class: "btn btn-info"}
+            %a.me-2{href: dispute_analysts_case_notes_path(@case), class: "btn btn-info"}
               %i.fa.fa-file
               Notes
+            %button.btn.btn-primary.me-2{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
+              %i.fa.fa-calendar-plus.me-1
+              Schedule Appointment
+            %a.me-2.btn.btn-secondary{href: dispute_analysts_case_appointments_path(@case)}
+              %i.fa.fa-calendar-alt
+              Show all Appointments
+            %a.me-2{href: edit_dispute_analysts_case_path(@case), class: 'btn btn-success'}
+              %i.fa.fa-sync
+              Change Status
 
-        - if @case.status == 'closed'
-          .signout-container
-            = link_to root_path, class: 'btn btn-primary disabled' do
-              %i.fa.fa-pen
-              Edit
-        - else
-          .signout-container
-            = link_to edit_dispute_analysts_case_path(@case), class: 'btn btn-primary' do
-              %i.fa.fa-pen
-              Edit
+        .signout-container
+          = link_to 'Back', :back, class: "btn btn-outline-secondary me-2"
+
+#exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content.p-4
+      .modal-header
+        %h1#exampleModalLabel.modal-title.fs-5 Schedule a New Appointment
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        = form_with model: @appointment, url: dispute_analysts_case_appointments_path(@appointment, case_id: @case.id), method: :post do |form|
+          = form.label :date
+          = form.date_field :date, class: 'form-control'
+          %br/
+          = form.label :start_time
+          = form.time_field :start_time, class: 'form-control'
+          %br/
+          = form.label :end_time
+          = form.time_field :end_time, class: 'form-control'
+          = form.hidden_field :status, value: 'scheduled'
+          = form.hidden_field :case_id, value: @case.id
+          = form.hidden_field :scheduler_id, value: current_dispute_analyst.id
+          = form.hidden_field :schedulee_id, value: @case.user_id
+          %br/
+          .modal-footer
+            %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+            .text-center{"data-bs-dismiss" => "modal", type: "button"}
+              = form.submit "Schedule Appointment", class: 'btn btn-primary'

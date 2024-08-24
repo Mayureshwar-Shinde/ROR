@@ -4,6 +4,8 @@
   .row
     .col-md-10.offset-md-1.mx-auto
       %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.4); border-radius:10px; overflow-x: auto;"}
+        .display-6 Cases
+        %hr.border-2
         = form_for :filter, url: dispute_analysts_cases_path, method: :get do |form|
           = form.label :status
           = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
@@ -13,7 +15,7 @@
             %i.fa.fa-filter
             Filter
 
-        %hr.border-4
+        %div{style:"margin:20px;"}
         %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
           %thead.table-dark
             %th= link_to 'Case no', sort: "case_number"

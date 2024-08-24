@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       resources :notes
       resources :appointments
     end
+    get '/my_appointments', to: 'appointments#my_appointments', as: 'my_appointments'
   end
 
 end
