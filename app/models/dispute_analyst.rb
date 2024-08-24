@@ -1,0 +1,2 @@
+class DisputeAnalyst < User
+end

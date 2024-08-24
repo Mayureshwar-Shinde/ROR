@@ -1,0 +1,24 @@
+.card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width:600px; background-color: rgba(255, 255, 255, 0.5);"}
+  %h2.text-center Update Case
+  %br
+  = form_with model: @case, url: "/dispute_analysts/cases/#{@case.id}", method: :put do |form|
+
+    .field.form-group
+      = form.label :title
+      = form.text_field :title, class: "form-control"
+    %br/
+
+    .field.form-group
+      = form.label :description
+      = form.text_area :description, class: "form-control"
+    %br/
+
+    .field.form-group
+      = form.label :status
+      = form.select(:status, [['Select',"#{@case.status}"], ['In progress','in_progress'], ['Resolved','resolved']], {}, {class: "form-select"})
+    %br/
+
+    = form.submit "Update", class: 'form-control btn btn-success'
+  %br
+
+  = link_to 'Back', :back, class: 'btn btn-primary', style: "margin-left:40%; width:20%;"

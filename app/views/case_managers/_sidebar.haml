@@ -1,0 +1,40 @@
+= stylesheet_link_tag('sidebar.css')
+
+.sidenav.collapsible
+  %br
+  %br
+  .profile-container.mt-2
+    %a{href: case_managers_new_avatar_path, style: "margin-left:22%"}
+      - if current_case_manager.avatar.attached?
+        = image_tag(current_case_manager.avatar, :style => "display:inline-block; width:100px; height:100px; border-radius:50%; object-fit:cover; margin: 0 auto;")
+      - else
+        %span.material-symbols-outlined{:style=>"font-size:100px; color:white; margin: 0 auto;"} account_circle
+    %strong.text-light
+      #{current_case_manager.first_name} #{current_case_manager.last_name}
+    .text-secondary (Case Manager)
+  %hr.text-light
+  %a{href: root_path}
+    %i.fa.fa-home
+    Home
+  %button.dropdown-btn
+    %i.fa.fa-user
+    MyProfile
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: case_managers_new_avatar_path} Update Avatar
+    %a{href: edit_case_manager_registration_path} Update Profile
+  %button.dropdown-btn
+    %i.fa.fa-clipboard
+    Cases
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: case_managers_cases_path} List all Cases
+    %A{href: new_case_managers_case_path} Create New Case
+  %hr.text-light
+  .signout-container
+    = button_to destroy_case_manager_session_path, method: :delete, :class => 'btn btn-danger', :style => "display:block; margin: 0 auto;" do
+      %i.fa.fa-power-off
+      Sign out
+  %br
+
+= javascript_include_tag ('sidebar.js')

@@ -1,0 +1,2 @@
+class CaseManager < User
+end

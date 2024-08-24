@@ -1,0 +1,17 @@
+.card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width: 450px; background-color: rgba(255, 255, 255, 0.7);"}
+  %h2 Log in
+  %br/
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .field.form-group
+      = f.label :email
+      = f.email_field :email, aut4focus: true, autocomplete: "email", class: "form-control"
+      %br/
+    .field.form-group
+      = f.label :password
+      = f.password_field :password, autocomplete: "current-password", class: "form-control"
+    %br/
+    .actions.form-group
+      = f.submit "Log in", class: 'form-control btn btn-primary border-dark'
+      %br/
+      %br/
+  = render "devise/shared/links"
