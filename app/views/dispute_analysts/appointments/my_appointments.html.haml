@@ -14,7 +14,6 @@
             %th Scheduler
             %th Schedulee
             %th Status
-            %th Edit
           %tbody
             - @appointments.each do |appointment|
               %tr
@@ -28,10 +27,3 @@
                 %td #{appointment.scheduler.first_name} #{appointment.scheduler.last_name}
                 %td #{appointment.schedulee.first_name} #{appointment.schedulee.last_name}
                 %td= appointment.status.capitalize
-                %td.text-center
-                  - unless appointment.status == 'completed'
-                    %a.btn.btn-warning{href: edit_case_managers_case_appointment_path(case_id:appointment.case.id, id:appointment.id), style: "font-size:10px;"}
-                      %i.fa.fa-pen
-                  - else
-                    %a.btn.btn-warning.disabled{href:'#', style: "font-size:10px;"}
-                      %i.fa.fa-pen

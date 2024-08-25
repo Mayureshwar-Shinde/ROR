@@ -35,11 +35,7 @@
                 %strong Updated at:
                 #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
           %hr
-          - if @case.status == 'closed'
-            %a{class: "btn btn-info disabled"}
-              %i.fa.fa-note
-              Notes
-          - else
+          - unless @case.status == 'closed'
             %a.me-2{href: dispute_analysts_case_notes_path(@case), class: "btn btn-info"}
               %i.fa.fa-file
               Notes

@@ -8,7 +8,7 @@ class Appointment < ApplicationRecord
   validates :scheduler_id, :schedulee_id, presence: true, numericality: { only_integer: true }
   validates :status, presence: true, inclusion: { in: %w[scheduled cancelled completed] }
 
-  validate :valid_time_range
+  # validate :valid_time_range
 
   private
 

@@ -11,10 +11,6 @@
     = form.label :end_time
     = form.time_field :end_time, class: 'form-control'
     %br/
-    = form.hidden_field :status, value: 'scheduled'
-    = form.hidden_field :case_id, value: @case.id
-    = form.hidden_field :scheduler_id, value: current_case_manager.id
-    = form.hidden_field :schedulee_id, value: @case.assigned_to_id
     = form.label :status
     = form.select(:status, [['Scheduled','scheduled'], ['Cancelled','cancelled']], {}, {class: "form-select"})
     %br/
