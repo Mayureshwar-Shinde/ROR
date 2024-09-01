@@ -1,0 +1,11 @@
+%body{:style => "background-image: url(#{asset_path 'blog.jpg'}); background-size: cover;"}
+  .card.border-4.border-light.text-center.position-absolute.top-50.start-50.translate-middle.p-5.text-center{:style => "background-color: rgba(255, 255, 255, 0.75);"}
+    %h1.display-2.m-2
+      Welcome
+      - if user_signed_in?
+        , #{current_user.first_name.capitalize}!
+        %br/
+        = button_to "Sign out", destroy_user_session_path, method: :delete, :class => 'btn btn-danger'
+      - else
+        = link_to "Login", new_user_session_path, :class => "btn btn-success d-block m-4"
+        = link_to "Register", new_user_registration_path, :class => "btn btn-dark d-block m-4"
