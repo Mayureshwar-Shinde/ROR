@@ -1,0 +1,13 @@
+.card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width:600px; background-color: rgba(255, 255, 255, 0.8);"}
+  %h2.text-center Change Status
+  %br
+  = simple_form_for @case, url: "/dispute_analysts/cases/#{@case.id}", method: :put do |form|
+    = form.input :title, disabled: true
+    = form.input :description, disabled: true
+    = form.label :status
+    = form.select(:status, [['Select',"#{@case.status}"], ['In progress','in_progress'], ['Resolved','resolved']], {}, {class: "form-select"})
+    %br/
+    .text-center
+      = form.submit "Update", class: 'form-control btn btn-success'
+    %br/
+    = link_to 'Back', :back, class: 'btn btn-outline-secondary', style: "margin-left:40%; width:20%;"

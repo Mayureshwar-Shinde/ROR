@@ -1,0 +1,14 @@
+.card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width:600px; background-color: rgba(255, 255, 255, 0.8);"}
+  %h2.text-center Update Case
+  %br
+  = simple_form_for @case, url: "/case_managers/cases/#{@case.id}", method: :put do |f|
+    = f.input :title
+    = f.input :description
+    = f.label :assign_to
+    = f.select(:assigned_to_id,[['Unassigned', nil]] + @users.collect {|u| [ "#{u.first_name} #{u.last_name}", u.id ] }, {}, {class: "form-select"})
+    %br/
+    = f.label :status
+    = f.select(:status, [['Select', "#{@case.status}"], ['Open','open'], ['Closed','closed']], {}, {class: "form-select"})
+    %br/
+    .text-center
+      = f.button :submit, class: 'btn btn-success'

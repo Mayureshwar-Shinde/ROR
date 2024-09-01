@@ -1,0 +1,127 @@
+= stylesheet_link_tag('sidebar.css')
+
+.sidebar.close
+  .logo
+    %i.fab.fa-trade-federation
+    %span.logo-name Tivotal
+
+  %ul.nav-list
+
+    %li
+      %a{href: destroy_user_session_path, method: :delete, data: { turbo_method: :delete }}
+        %i.fa.fa-power-off
+        %span.link-name Signout
+      %ul.sub-menu.blank
+        %l
+          %a.link-name{href: destroy_user_session_path, method: :delete, data: { turbo_method: :delete }} Signout
+
+    %li
+      %a{href: "#"}
+        %i.fab.fa-microsoft
+        %span.link-name Dashboard
+      %ul.sub-menu.blank
+        %l
+          %a.link-name{href: "#"} Dashboard
+    %li
+      .icon-link
+        %a{href: "#"}
+          %i.fab.fa-codepen
+          %span.link-name Courses
+        %i.fas.fa-caret-down.arrow
+      %ul.sub-menu
+        %li
+          %a.link-name{href: "#"} Courses
+        %li
+          %a{href: "#"} Block Chain
+        %li
+          %a{href: "#"} Cryptography
+        %li
+          %a{href: "#"} Animation
+    %li
+      .icon-link
+        %a{href: "#"}
+          %i.fab.fa-blogger
+          %span.link-name Blog
+        %i.fas.fa-caret-down.arrow
+      %ul.sub-menu
+        %li
+          %a.link-name{href: "#"} Blog
+        %li
+          %a{href: "#"} Web Design
+        %li
+          %a{href: "#"} Card Design
+        %li
+          %a{href: "#"} Form Design
+    %li
+      %a{href: "#"}
+        %i.fas.fa-clock-rotate-left
+        %span.link-name Activity
+      %ul.sub-menu.blank
+        %li
+          %a.link-name{href: "#"} Activity
+    %li
+      %a{href: "#"}
+        %i.fas.fa-heart
+        %span.link-name Favourite
+      %ul.sub-menu.blank
+        %li
+          %a.link-name{href: "#"} Favourite
+    %li
+      .icon-link
+        %a{href: "#"}
+          %i.fas.fa-laptop-code
+          %span.link-name Compiler
+        %i.fas.fa-caret-down.arrow
+      %ul.sub-menu
+        %li
+          %a.link-name{href: "#"} Compiler
+        %li
+          %a{href: "#"} Python Compiler
+        %li
+          %a{href: "#"} Java Compiler
+        %li
+          %a{href: "#"} C Compiler
+    %li
+      %a{href: "#"}
+        %i.fas.fa-bookmark
+        %span.link-name Saved
+      %ul.sub-menu.blank
+        %li
+          %a.link-name{href: "#"} Saved
+    %li
+      %a{href: "#"}
+        %i.fas.fa-cart-shopping
+        %span.link-name Cart
+      %ul.sub-menu.blank
+        %li
+          %a.link-name{href: "#"} Cart
+    %li
+      %a{href: "#"}
+        %i.fas.fa-gear
+        %span.link-name Settings
+      %ul.sub-menu.blank
+        %li
+          %a.link-name{href: "#"} Settings
+    %li
+      .profile-details
+        .profile-content
+          %img{alt: "", src: "../../../assets/profile.jpg"}/
+        .name-job
+          .name Mary Karen
+          .job Web Developer
+        %i.fas.fa-right-to-bracket
+-#
+  .home-section
+    .home-content
+      %i.fas.fa-bars.text-secondary
+
+
+          %li
+      %a{href: destroy_user_session_path, method: :delete, data: { turbo_method: :delete }}
+        %i.fab.fa-power-off
+        %span.link-name Signout
+      %ul.sub-menu.blank
+        %l
+          %a.link-name{href: "#"} Signout
+
+= javascript_include_tag('sidebar.js')

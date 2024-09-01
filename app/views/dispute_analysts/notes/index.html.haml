@@ -1,0 +1,43 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6
+          NOTES
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            %th Note Id
+            %th Content
+            %th Added By
+            %th Created at
+            %th Updated at
+            %th Edit
+            %th Delete
+          %tbody
+            - @notes.each do |note|
+              %tr
+                %td= note.id
+                %td= note.content
+                %td #{note.user.first_name} #{note.user.last_name}
+                %td= note.created_at.strftime("%B %d %Y, %l:%M%P")
+                %td= note.updated_at.strftime("%B %d %Y, %l:%M%P")
+                - if note.user_id == current_dispute_analyst.id
+                  %td
+                    = link_to edit_dispute_analysts_case_note_path(:id => note.id, :case_id => @case.id), class: 'btn btn-primary', style:"font-size:11px;" do
+                      %i.fa.fa-pen
+                  %td
+                    = button_to dispute_analysts_case_note_path(:id => note.id, :case_id => @case.id), method: :delete, class: "btn btn-danger", style: "font-size: 11px;" do
+                      %i.fa.fa-trash
+                - else
+                  %td
+                    %a{class: "btn btn-primary disabled", style: "font-size: 11px;"}
+                      %i.fa.fa-pen
+                  %td
+                    %a{class: "btn btn-danger disabled", style: "font-size: 11px;"}
+                      %i.fa.fa-trash
+        .text-center
+          %a{href: new_dispute_analysts_case_note_path(@case), class: "btn btn-info"}
+            %i.fa.fa-plus
+            Add Note
+      %br

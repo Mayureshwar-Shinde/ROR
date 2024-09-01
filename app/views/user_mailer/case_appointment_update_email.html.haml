@@ -1,0 +1,7 @@
+%h2 Case #{@appointment.case.case_number} Appointment Update
+
+%h4
+  Below changes were made by '#{@changer_name}':
+%ul
+  - @changes.each do |change|
+    %li= change

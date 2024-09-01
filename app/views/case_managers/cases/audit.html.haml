@@ -1,0 +1,12 @@
+.main-content
+  %h1 Audits
+  %h2 Case Manager Audits
+  %ul
+    - @own_and_associated_audits.each do |audit|
+      %li
+        - unless audit.auditable_id.nil?
+          %h5.d-inline #{audit.action} by
+          #{audit.auditable.email} at #{audit.created_at}
+          %br/
+          #{audit.audited_changes}
+          .div{style: "margin:20px;"}

@@ -1,0 +1,17 @@
+.card.mx-auto.p-5.mb-5.border-4.border-light{:style => "width: 500px; background-color: rgba(255, 255, 255, 0.75);"}
+  %h2.text-center Edit Appointment
+  %br
+  = form_with model: @appointment, url: case_managers_case_appointment_path, method: :put do |form|
+    = form.label :date
+    = form.date_field :date, class: 'form-control'
+    %br/
+    = form.label :start_time
+    = form.time_field :start_time, class: 'form-control'
+    %br/
+    = form.label :end_time
+    = form.time_field :end_time, class: 'form-control'
+    %br/
+    = form.label :status
+    = form.select(:status, [['Scheduled','scheduled'], ['Cancelled','cancelled']], {}, {class: "form-select"})
+    %br/
+    = form.submit "Update", class: 'form-control btn btn-warning'

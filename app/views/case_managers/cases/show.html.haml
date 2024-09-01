@@ -1,0 +1,204 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      .card.p-4{:style => "border-radius:10px; overflow-x: auto;"}
+      
+        %h3.card-header.display-6
+          = @case.case_number
+
+        .card-body
+          %h4.card-title
+            = @case.title
+          %p.card-text{style: "font-size:15px"}
+            = @case.description  
+
+          %hr
+          %ul.list-unstyled.display-6{style: "font-size:15px;"}
+            %li 
+              %strong.d-inline Status:
+              = @case.status
+            %li
+              %strong Created by:
+              = "#{@case.user.first_name} #{@case.user.last_name}"
+            %li
+              %strong Assigned to:
+              = @case.assigned_to_id.nil? ? 'Unassigned' : "#{@case.assigned_to.first_name} #{@case.assigned_to.last_name}"
+            %li
+              %strong Created at:
+              = @case.created_at.strftime("%B %d %Y, %l:%M%P")
+            - if @case.status == 'Resolved'
+              %li
+                %strong Resolved at:
+                = @case.updated_at.strftime("%B %d %Y, %l:%M%P")
+            - else
+              %li
+                %strong Updated at:
+                = @case.updated_at.strftime("%B %d %Y, %l:%M%P")
+
+          %hr
+          .button-group
+            = link_to edit_case_managers_case_path(@case), class: 'btn btn-success m-2' do
+              %i.fa.fa-pen
+              Edit
+            = link_to case_managers_case_notes_path(@case), class: "btn btn-info me-2" do
+              %i.fa.fa-file
+              Notes
+            - unless @case.assigned_to_id.nil? || @case.status == 'closed'
+              = button_tag class: "btn btn-primary m-2", "data-bs-toggle" => "modal", "data-bs-target" => "#exampleModal" do
+                %i.fa.fa-calendar-plus.me-1
+                Schedule Appointment
+              = link_to case_managers_case_appointments_path(@case), class: "btn btn-secondary m-2" do
+                %i.fa.fa-calendar-alt
+                Show all Appointments
+              = link_to new_case_managers_communication_path(message_type: 'email'), class: 'btn btn-warning m-2' do
+                %i.fa.fa-envelope
+                Send Email
+              = link_to new_case_managers_communication_path(message_type: 'sms'), class: 'btn btn-warning m-2' do
+                %i.fa.fa-sms
+                Send SMS
+            = link_to case_managers_communications_path, class: 'btn btn-dark m-2' do
+              %i.fa.fa-history
+              Show Communication Logs
+
+- @appointment = Appointment.new
+#exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content.p-4
+      .modal-header
+        %h1#exampleModalLabel.modal-title.fs-5 Schedule a New Appointment
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        = form_with model: @appointment, url: case_managers_case_appointments_path(@appointment, case_id: @case.id), method: :post do |form|
+          = form.label :date
+          = form.date_field :date, class: 'form-control'
+          %br/
+          = form.label :start_time
+          = form.time_field :start_time, class: 'form-control'
+          %br/
+          = form.label :end_time
+          = form.time_field :end_time, class: 'form-control'
+          = form.hidden_field :status, value: 'scheduled'
+          = form.hidden_field :case_id, value: @case.id
+          = form.hidden_field :scheduler_id, value: current_case_manager.id
+          = form.hidden_field :schedulee_id, value: @case.assigned_to_id
+          %br/
+          .modal-footer
+            %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+            = form.submit "Schedule Appointment", class: 'btn btn-primary'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-#
+  .container-fluid
+    .row
+      .col-md-10.offset-md-1.mx-auto
+        .card.p-4{:style => "border-radius:10px; overflow-x: auto;"}
+          %h3.card-header.display-6
+            = @case.case_number
+          .card-body
+            %h4.card-title
+              = @case.title
+            %p.card-text{style: "font-size:15px"}
+              = @case.description
+            %hr
+            %ul.list-unstyled.display-6{style: "font-size:15px"}
+              %li 
+                %strong.d-inline Status:
+                #{@case.status}
+              %li
+                %strong Created by:
+                #{@case.user.first_name} #{@case.user.last_name}
+              %li
+                %strong Assigned to:
+                - if @case.assigned_to_id.nil?
+                  Unassigned
+                - else
+                  #{@case.assigned_to.first_name} #{@case.assigned_to.last_name}
+              %li
+                %strong Created at:
+                #{@case.created_at.strftime("%B %d %Y, %l:%M%P")}
+              - if @case.status == 'Resolved'
+                %li
+                  %strong Resolved at:
+                  #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
+              -else
+                %li
+                  %strong Updated at:
+                  #{@case.updated_at.strftime("%B %d %Y, %l:%M%P")}
+
+            %hr
+            - unless @case.status == 'closed'
+              %a.me-2{href: case_managers_case_notes_path(@case), class: "btn btn-info"}
+                %i.fa.fa-file
+                Notes
+              %button.btn.btn-primary.me-2{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
+                %i.fa.fa-calendar-plus.me-1
+                Schedule Appointment
+              %a.btn.btn-secondary.me-2{href: case_managers_case_appointments_path(@case)}
+                %i.fa.fa-calendar-alt
+                Show all Appointments
+              %a.me-2{href: edit_case_managers_case_path(@case), class: 'btn btn-success'}
+                %i.fa.fa-pen
+                Edit
+
+              %hr
+              %h6 Communication:
+              = form_with url: send_email_case_managers_case_path(@case), method: :post, class: "d-inline" do
+                = button_tag(type: 'submit', class: 'btn btn-warning me-2') do
+                  %i.fa.fa-envelope
+                  Send Email
+
+              = form_with url: send_sms_case_managers_case_path(@case), method: :post, class: "d-inline" do
+                = button_tag(type: 'submit', class: 'btn btn-warning me-2') do
+                  %i.fa.fa-sms
+                  Send SMS
+
+              %a.btn.btn-warning.me-2{href: 'case_managers_case_logs_path(@case)'}
+                %i.fa.fa-history
+                View Logs
+
+          .signout-container
+            = link_to 'Back', :back, class: "btn btn-outline-secondary me-2"
+
+
+  #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+    .modal-dialog
+      .modal-content.p-4
+        .modal-header
+          %h1#exampleModalLabel.modal-title.fs-5 Schedule a New Appointment
+          %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+        .modal-body
+          = form_with model: @appointment, url: case_managers_case_appointments_path(@appointment, case_id: @case.id), method: :post do |form|
+            = form.label :date
+            = form.date_field :date, class: 'form-control'
+            %br/
+            = form.label :start_time
+            = form.time_field :start_time, class: 'form-control'
+            %br/
+            = form.label :end_time
+            = form.time_field :end_time, class: 'form-control'
+            = form.hidden_field :status, value: 'scheduled'
+            = form.hidden_field :case_id, value: @case.id
+            = form.hidden_field :scheduler_id, value: current_case_manager.id
+            = form.hidden_field :schedulee_id, value: @case.assigned_to_id
+            %br/
+            .modal-footer
+              %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+              .text-center{"data-bs-dismiss" => "modal", type: "button"}
+                = form.submit "Schedule Appointment", class: 'btn btn-primary'

@@ -1,0 +1,42 @@
+= stylesheet_link_tag('sidebar.css')
+
+.sidenav.collapsible
+  %br
+  %br
+  .profile-container.mt-2
+    %a{href: dispute_analysts_new_avatar_path, style: "margin-left:22%"}
+      - if current_dispute_analyst.avatar.attached?
+        = image_tag(current_dispute_analyst.avatar, :style => "display:inline-block; width:100px; height:100px; border-radius:50%; object-fit:cover; margin: 0 auto;")
+      - else
+        %span.material-symbols-outlined{:style=>"font-size:100px; color:white; margin: 0 auto;"} account_circle
+    %strong.text-light
+      #{current_dispute_analyst.first_name} #{current_dispute_analyst.last_name}
+    .text-secondary (Dispute Analyst)
+  %hr.text-light
+  %a{href: root_path}
+    %i.fa.fa-home
+    Home
+  %button.dropdown-btn
+    %i.fa.fa-user
+    MyProfile
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: dispute_analysts_new_avatar_path} Update Avatar
+    %a{href: edit_dispute_analyst_registration_path} Update Profile
+  %button.dropdown-btn
+    %i.fa.fa-clipboard
+    Dispute Cases
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: dispute_analysts_cases_path} List of Cases
+  %a{href: dispute_analysts_my_appointments_path}
+    %i.fa.fa-calendar
+    Appointments
+  %hr.text-light
+  .signout-container
+    = button_to destroy_dispute_analyst_session_path, method: :delete, :class => 'btn btn-danger', :style => "display:block; margin: 0 auto;" do
+      %i.fa.fa-power-off
+      Sign out
+  %br
+
+= javascript_include_tag ('sidebar.js')

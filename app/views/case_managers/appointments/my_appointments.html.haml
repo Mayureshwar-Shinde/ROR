@@ -1,0 +1,37 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto.mb-5
+      %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 My Appointments
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            %th ID
+            %th Case
+            %th Date
+            %th Start
+            %th End
+            %th Scheduler
+            %th Schedulee
+            %th Status
+            %th Edit
+          %tbody
+            - @appointments.each do |appointment|
+              %tr
+                %td= appointment.id
+                %td
+                  %a.text-decoration-none{href: case_managers_case_path(appointment.case)}
+                    #{appointment.case.case_number}
+                %td= appointment.date.strftime("%d %B %Y")
+                %td= appointment.start_time.strftime("%l:%M%P")
+                %td= appointment.end_time.strftime("%l:%M%P")
+                %td #{appointment.scheduler.first_name} #{appointment.scheduler.last_name}
+                %td #{appointment.schedulee.first_name} #{appointment.schedulee.last_name}
+                %td= appointment.status.capitalize
+                %td.text-center
+                  - unless appointment.status == 'completed'
+                    %a.btn.btn-warning{href: edit_case_managers_case_appointment_path(case_id:appointment.case.id, id:appointment.id), style: "font-size:10px;"}
+                      %i.fa.fa-pen
+                  - else
+                    %a.btn.btn-warning.disabled{href:'#', style: "font-size:10px;"}
+                      %i.fa.fa-pen

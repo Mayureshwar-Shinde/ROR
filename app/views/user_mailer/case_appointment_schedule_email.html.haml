@@ -1,0 +1,8 @@
+%h2 Case #{@appointment.case.case_number} Appointment
+
+%ul
+  %li Scheduler: #{@appointment.scheduler.first_name} #{@appointment.scheduler.last_name}
+  %li Schedulee: #{@appointment.schedulee.first_name} #{@appointment.schedulee.last_name}
+  %li Date: #{@appointment.date.strftime("%d %B %Y")}
+  %li Start: #{@appointment.start_time.strftime("%l:%M%P")}
+  %li End: #{@appointment.end_time.strftime("%l:%M%P")}

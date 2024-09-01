@@ -1,0 +1,2 @@
+module CaseManagers::AuditsHelper
+end

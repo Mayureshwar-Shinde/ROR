@@ -1,0 +1,25 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 Case(#{Case.find(params[:case_id]).case_number}) Appointments
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            %th ID
+            %th Date
+            %th Start
+            %th End
+            %th Scheduler
+            %th Schedulee
+            %th Status
+          %tbody
+            - @appointments.each do |appointment|
+              %tr
+                %td= appointment.id
+                %td= appointment.date.strftime("%d %B %Y")
+                %td= appointment.start_time.strftime("%l:%M%P")
+                %td= appointment.end_time.strftime("%l:%M%P")
+                %td #{appointment.scheduler.first_name} #{appointment.scheduler.last_name}
+                %td #{appointment.schedulee.first_name} #{appointment.schedulee.last_name}
+                %td= appointment.status.capitalize

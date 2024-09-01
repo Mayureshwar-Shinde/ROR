@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* Sidebar styles */
+.sidenav {
+  height: 100%;
+  width: 250px; /* Expanded width */
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+  padding-top: 20px;
+  transition: 0.3s ease; /* Smooth transition for hiding and showing */
+}
+
+/* Hidden sidebar */
+.sidenav.collapsed {
+  width: 0; /* Completely hidden */
+  padding-top: 0; /* Hide padding when collapsed */
+  overflow: hidden;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 240px; /* Matches the expanded sidebar width */
+  font-size: 20px;
+  padding: 0px 10px;
+  transition: margin-left 0.3s ease; /* Smooth transition for main content shift */
+}
+
+/* Collapsed main content */
+.main.collapsed {
+  margin-left: 0; /* Move content to the left when sidebar is hidden */
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: green;
+  color: white;
+}
+
+/* Dropdown container (hidden by default) */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Center the profile picture */
+.profile-container {
+  text-align: center;
+}
+
+/* Center the sign-out button */
+.signout-container {
+  text-align: center;
+}
+
+/* Styles for the sidebar toggle button */
+#sidebarToggle {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
+
+/* Sidebar toggle button hover effect */
+#sidebarToggle:hover {
+  color: #f1f1f1;
+}

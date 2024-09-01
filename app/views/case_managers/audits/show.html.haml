@@ -1,0 +1,25 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      %div.p-4{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 #{@type.capitalize} Audits
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            - unless @type == 'user'
+              %th ID
+            %th Action
+            %th Changes
+            %th Updated_at
+          %tbody
+            - @audits.each do |audit|
+              %tr
+                - unless @type == 'user'
+                  %td= audit.auditable_id
+                %td #{audit.action.capitalize}d
+                %td
+                  - if audit.action == 'create'
+                    Created New #{@type.capitalize}
+                  - else
+                    #{audit.audited_changes.keys}
+                %td= audit.created_at.strftime("%B %d %Y, %l:%M%P")

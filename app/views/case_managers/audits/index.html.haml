@@ -1,0 +1,17 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto.mb-5
+      %div.p-5{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 Audits
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark.text-center
+            %th Type
+            %th View
+          %tbody.text-center
+            - @types.each do |type|
+              %tr
+                %td #{type.capitalize}
+                %td
+                  = link_to case_managers_audit_show_path(type: type), style:"font-size:20px;" do
+                    %i.fa.fa-eye

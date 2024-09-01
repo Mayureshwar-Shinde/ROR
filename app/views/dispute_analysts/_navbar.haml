@@ -1,0 +1,14 @@
+.navbar.navbar-expand-lg.navbar-light{style: "background-color:white; position: fixed; top: 0; left: 0px; width: 100%; z-index:2; height: 60px; border-top: solid black 1px;"}
+  .container-fluid
+    .navbar-brand.text-dark
+      %i.fa.fa-balance-scale.text-dark{style: "font-size:25px;"}
+      %a.text-dark.ms-1{href: root_path, style: "text-decoration:none; font-size:27px;"} CaseWise
+
+    %ul.navbar-nav.ml-auto.me-5
+      %li.nav-item.ms-3
+        - if current_dispute_analyst.avatar.attached?
+          = link_to dispute_analysts_new_avatar_path do
+            = image_tag(current_dispute_analyst.avatar, :style => "display:inline-block; width:40px; height:40px; border-radius:50%; object-fit:cover; border: solid black 1px;")
+        - else
+          = link_to dispute_analysts_new_avatar_path do
+            %span.material-symbols-outlined.dropdown{:style=>"font-size:34px; left:4px; top:2px; color:white;"} account_circle

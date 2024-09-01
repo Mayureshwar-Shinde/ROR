@@ -1,0 +1,47 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto.p-5.mb-5{style: "background-color:white;"}
+
+      %br
+      .div{style: "background-color: darkslategrey; height:60px; border-left: solid teal 8px; font-size:27px;"}
+        .text-white.ms-4.p-2 Users
+      .row
+        .col.mt-4
+          = line_chart User.group_by_day(:created_at).count, title: "User Creation", download: {filename: 'User Creation'}
+        .col.mt-4
+          = pie_chart User.group(:role_type).count, title: "User Distribution by Role", download: {filename: 'User Distribution by Role'}
+
+      %br
+      %hr.m-5
+      %br
+      .div{style: "background-color: darkslategrey; height:60px; border-left: solid teal 8px; font-size:27px;"}
+        .text-white.ms-4.p-2 Cases
+      .row
+        .col.mt-4
+          = pie_chart Case.group(:status).count, title: "Case Status Distribution", download: {filename: 'Case Status Distribution'}
+        .col.mt-4
+          = line_chart Case.group_by_month(:created_at).count, title: "Case Creation Trend", download: {filename: 'Case Creation Trend'}
+        .col.mt-4
+          = bar_chart Case.group(:user_id).count, title: "Case Distribution by Case Manager", download: {filename: 'Case Distribution by Case Manager'}
+
+      %br
+      %hr.m-5
+      %br
+      .div{style: "background-color: darkslategrey; height:60px; border-left: solid teal 8px; font-size:27px;"}
+        .text-white.ms-4.p-2 Appointments
+      .row
+        .col.mt-4
+          = line_chart Appointment.group_by_month(:date).count, title: "Appointment Scheduling Trend", download: {filename: 'Appointment Scheduling Trend'}
+        .col.mt-4
+          = bar_chart Appointment.group(:scheduler_id).count, title: "Appointment Distribution by Scheduler", download: {filename: 'Appointment Distribution by Scheduler'}
+
+      %br
+      %hr.m-5
+      %br
+      .div{style: "background-color: darkslategrey; height:60px; border-left: solid teal 8px; font-size:27px;"}
+        .text-white.ms-4.p-2 Communications
+      .row
+        .col.mt-4
+          = line_chart Communication.group_by_month(:created_at).count, title: "Communication Volume", download: {filename: 'Communication Volume'}
+        .col.mt-4
+          = bar_chart Communication.group(:case_id).count, title: "Communication Distribution by Case", download: {filename: 'Communication Distribution by Case'}

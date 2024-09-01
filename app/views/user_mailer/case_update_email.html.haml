@@ -1,0 +1,6 @@
+%h2 Case Update
+%h4
+  Below changes were made by '#{@details[:updater]}':
+%ul
+  - @changes.each do |change|
+    %li= change

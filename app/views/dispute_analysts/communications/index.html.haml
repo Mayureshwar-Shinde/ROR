@@ -1,0 +1,23 @@
+.container-fluid
+  .row
+    .col-md-10.offset-md-1.mx-auto
+      %div.p-4.mb-5{:style => "background-color: rgba(255, 255, 255, 0.5); border-radius:10px; overflow-x: auto;"}
+        %h3.card-header.display-6 Communication Logs
+        %hr
+        %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+          %thead.table-dark
+            %th ID
+            %th Subject
+            %th Message
+            %th From
+            %th To
+            %th Sent At
+          %tbody
+            - @communications.each do |communication|
+              %tr
+                %td= communication.id
+                %td= communication.subject
+                %td= communication.message
+                %td #{communication.from.first_name} #{communication.from.last_name}
+                %td #{communication.to.first_name} #{communication.to.last_name}
+                %td= communication.created_at.strftime("%B %d %Y, %l:%M%P")
