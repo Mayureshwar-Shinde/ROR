@@ -55,5 +55,6 @@
                 %td= c.updated_at.strftime("%B %d %Y, %l:%M%P")
 %br
 %br
-.apple_pagination
-  = will_paginate @cases, :container => false
+%div.pagination-container
+  .digg_pagination
+    = will_paginate @cases, :container => false
