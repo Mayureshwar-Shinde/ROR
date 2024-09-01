@@ -3,7 +3,7 @@
 /* Sidebar styles */
 .sidenav {
   height: 100%;
-  width: 250px; /* Expanded width */
+  width: 260px; /* Expanded width */
   position: fixed;
   z-index: 1;
   top: 0;
