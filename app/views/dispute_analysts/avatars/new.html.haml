@@ -10,6 +10,6 @@
   = form_with model: @user, url: dispute_analysts_update_avatar_path, method: :put do |form|
     = form.file_field :avatar, class: 'form-control'
     %br/
-    = form.submit "Update", class: 'form-control btn btn-success'
+    = form.submit "Update", class: 'form-control btn btn-primary'
   %br/
   = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger', method: :delete, style: 'margin-left:132px'
