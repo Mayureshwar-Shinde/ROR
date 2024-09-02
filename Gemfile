@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.3"
+ruby "3.3.4"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
@@ -9,10 +9,10 @@ gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-# gem "sqlite3", "~> 1.4"
+gem "sqlite3", "~> 1.4"
 
 # change the default database to postgres
-gem "pg"
+# gem "pg"
 
 # adding dotenv
 gem 'dotenv', groups: [:development, :test]

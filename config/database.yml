@@ -1,18 +1,16 @@
 default: &default
-  adapter: postgresql
+  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
 
 development:
   <<: *default
-  database: <%= ENV['DATABASE_NAME'] %>
+  database: db/development.sqlite3
 
 test:
   <<: *default
-  database: <%= "#{ENV['DATABASE_NAME']}-test" %>
+  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: <%= "#{ENV['DATABASE_NAME']}-production" %>
+  database: db/production.sqlite3
