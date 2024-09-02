@@ -2,7 +2,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       skip_before_action :verify_authenticity_token
-      before_action :find_user, only: %i[show update]
+      before_action :find_user, only: %i[show update destroy]
 
       # API documentation using apipie
       def_param_group :user_attributes do
@@ -80,6 +80,20 @@ module Api
         outcome = UpdateUser.run(params.fetch(:user, {}).merge(user: @user))
         if outcome.valid?
           render json: @user, status: :ok
+        else
+          render json: { errors: outcome.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+
+      api :DELETE, '/v1/users/:id', 'Destroy'
+      formats ['json']
+      param :id, :number, desc: 'User id', required: true
+      returns code: 204, desc: 'User deleted successfully'
+      returns code: 422, desc: 'Unprocessable entity'
+      def destroy
+        outcome = DeleteUser.run(user: @user)
+        if outcome.valid?
+          head :no_content
         else
           render json: { errors: outcome.errors.full_messages }, status: :unprocessable_entity
         end
