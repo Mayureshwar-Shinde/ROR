@@ -21,7 +21,7 @@ describe Api::V1::UsersController, type: :request do
     end
 
     it 'returns a list of users with the correct attributes' do
-      expect(json(response).first.keys).to eq(%w[id first_name last_name email created_at])
+      expect(json(response).first.keys).to eq(%w[id first_name last_name email age date_of_birth created_at updated_at])
     end
 
     it 'returns a list of users with the correct data types' do

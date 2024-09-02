@@ -5,15 +5,7 @@ class UpdateUser < ActiveInteraction::Base
   date :date_of_birth, default: nil
 
   def execute
-    user.assign_attributes(
-      first_name: first_name || user.first_name,
-      last_name: last_name || user.last_name,
-      age: age || user.age,
-      date_of_birth: date_of_birth || user.date_of_birth,
-      email: email || user.email,
-      password: password || user.password
-    )
-    errors.merge!(user.errors) unless user.save
+    errors.merge!(user.errors) unless user.update(inputs.except(:user).compact)
     user
   end
 end
