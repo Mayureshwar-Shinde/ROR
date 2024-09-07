@@ -1,0 +1,30 @@
+= stylesheet_link_tag('sidebar.css')
+
+.sidenav.collapsible
+  %br
+  %hr.text-secondary
+  %a{href: root_path}
+    %i.fa.fa-home
+    Home
+  %button.dropdown-btn
+    %i.fa.fa-user
+    MyProfile
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: new_avatar_path} Update Avatar
+    %a{href: edit_user_registration_path} Update personal data
+  %button.dropdown-btn
+    %i.fa.fa-clipboard
+    Books
+    %i.fa.fa-caret-down
+  .dropdown-container
+    %a{href: '#'} Books
+    %A{href: '#'} Create new book
+  %hr.text-secondary
+  .signout-container
+    = button_to destroy_user_session_path, method: :delete, :class => 'btn btn-danger', :style => "display:block; margin: 0 auto;" do
+      %i.fa.fa-power-off
+      Sign out
+  %br
+
+= javascript_include_tag ('sidebar.js')
