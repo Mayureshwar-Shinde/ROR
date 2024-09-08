@@ -1,14 +1,16 @@
 @import "bootstrap";
 
+
 body {
-  /*background-color: #DFE3E6;*/
   background-color: #DFE3E6;
 }
+
 
 // when sidebar is present
 .main-content {
   margin-left: 260px;
 }
+
 
 // alerts and notifications
 .alert-notice-wrapper {
@@ -20,6 +22,7 @@ body {
 .alert {
   color: rgb(255,55,0);
 }
+
 
 // login, register and editprofile
 .case-card {
