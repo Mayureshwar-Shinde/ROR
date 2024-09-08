@@ -1,1 +1,29 @@
 @import "bootstrap";
+
+body {
+  /*background-color: #DFE3E6;*/
+  background-color: #DFE3E6;
+}
+
+// when sidebar is present
+.main-content {
+  margin-left: 260px;
+}
+
+// alerts and notifications
+.alert-notice-wrapper {
+  margin-top: 60px;
+}
+.notice {
+  color: rgb(42,204,2);
+}
+.alert {
+  color: rgb(255,55,0);
+}
+
+// login, register and editprofile
+.case-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 7px;
+  padding: 3rem;
+}

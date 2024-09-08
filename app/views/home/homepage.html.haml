@@ -1,26 +1,10 @@
-.div{style: 'margin-left: 100px;'}
-  %h1 Home#homepage
+= stylesheet_link_tag('homepage.css')
 
-  = link_to 'Login', new_user_session_path
-  = link_to 'SignUp', new_user_registration_path
-
-  %br
-  %br
-  
-  %i.fa.fa-car
-
-  %br
-  %br
-
-  %span.material-symbols-outlined
-    home
-  %span.material-symbols-outlined
-    search
-  %span.material-symbols-outlined
-    account_circle
-
-  %br
-  %br
-
-
-  = link_to 'Home', root_path, class: 'btn btn-danger'
+.card.shadow{class: "#{user_signed_in? ? 'signed-in' : ''}"}
+  %div.m-2.display-2 
+    Welcome
+    - if user_signed_in?
+      , #{current_user.first_name.capitalize}!
+    - else
+      = link_to "Login", new_user_session_path, :class => "btn btn-secondary d-block m-4"
+      = link_to "Register", new_user_registration_path, :class => "btn btn-primary d-block m-4"

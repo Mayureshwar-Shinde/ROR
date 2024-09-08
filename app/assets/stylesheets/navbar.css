@@ -1,0 +1,22 @@
+.navbar {
+  background-color: #8a8d93;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  height: 60px;
+  border-top: solid black 1px;
+  border-bottom: solid gainsboro 1px;
+}
+
+.navbar-brand .fa-balance-scale {
+  font-size: 25px;
+  color: white;
+}
+
+.navbar-brand .ms-1 {
+  font-size: 27px;
+  text-decoration: none;
+  color: white;
+}

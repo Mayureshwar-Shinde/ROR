@@ -1,17 +1,19 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
+.case-card.shadow.mx-auto{style: 'width: 450px;'}
+  %h2 Log in
+  %br/
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .field.form-group
+      = f.label :email
+      = f.email_field :email, aut4focus: true, autocomplete: "email", class: "form-control"
+      %br/
+    .field.form-group
+      = f.label :password
+      = f.password_field :password, autocomplete: "current-password", class: "form-control"
     %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+    .actions.form-group
+      = f.submit "Log in", class: 'form-control btn btn-primary'
+      %br/
+      %br/
+  = render "devise/shared/links"
+%br
+%br
