@@ -7,6 +7,12 @@ class User < ApplicationRecord
   validates :age, numericality: { only_integer: true, greater_than: 0 }
   validate :date_validation
 
+  # adding avatar
+  has_one_attached :avatar
+  validates :avatar, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], 
+                                             dimension: { width: { min: 40, max: 600 }, height: { min: 40, max: 200 }, message: 'is not given between dimension' },
+                                             size_range: 1..(5.megabytes) }
+
   private
 
   def date_validation
