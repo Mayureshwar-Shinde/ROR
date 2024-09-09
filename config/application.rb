@@ -11,6 +11,9 @@ module Blog
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.2
 
+    # using minimagick
+    config.active_storage.variant_processor = :mini_magick
+
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
@@ -23,8 +26,8 @@ module Blog
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
-    # avatar dimension validation using minimagick
-    config.active_storage.variant_processor = :mini_magick
+    config.generators do |g|
+      g.test_framework :rspec
+    end
   end
 end

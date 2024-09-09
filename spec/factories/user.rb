@@ -8,5 +8,13 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { password }
     phone { Faker::PhoneNumber.phone_number }
+
+    after(:create) do |user|
+      user.avatar.attach(
+        io: File.open(default_avatar_path),
+        filename: 'default_avatar.png',
+        content_type: 'image/png'
+      )
+    end
   end
 end

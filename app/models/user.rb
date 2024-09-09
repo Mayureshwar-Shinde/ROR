@@ -9,9 +9,10 @@ class User < ApplicationRecord
 
   # adding avatar
   has_one_attached :avatar
-  validates :avatar, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], 
-                                             dimension: { width: { min: 40, max: 600 }, height: { min: 40, max: 200 }, message: 'is not given between dimension' },
-                                             size_range: 1..(5.megabytes) }
+  validates :avatar, content_type: ['image/png', 'image/jpeg', 'image/jpg'],
+                                    # dimension: { width: { min: 40, max: 1600 },
+                                                  # height: { min: 40, max: 1200 }, message: 'is not given between dimension' },
+                                    size: { less_than: 10.megabytes , message: 'is too large' }
 
   private
 

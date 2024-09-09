@@ -19,7 +19,7 @@
   overflow: hidden;
 }
 
-.sidenav a, .dropdown-btn {
+.sidenav a, .dropdown-btn, .signout-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 20px;
@@ -33,7 +33,7 @@
   outline: none;
 }
 
-.sidenav a:hover, .dropdown-btn:hover {
+.sidenav a:hover, .dropdown-btn:hover, .signout-btn:hover {
   color: black;
   background-color: #E3E4E6;
 }
@@ -71,6 +71,6 @@
   text-align: center;
 }
 
-.signout-container {
-  text-align: center;
+i {
+  margin-right: 5px;
 }
