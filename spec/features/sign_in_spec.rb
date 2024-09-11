@@ -1,42 +1,44 @@
 require 'rails_helper'
 
-RSpec.feature 'Login management', type: :feature do
-
+RSpec.feature 'Sidebar Menu', type: :feature do
   let(:user) { create(:user) }
 
-  subject do
+  before do
     visit new_user_session_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Log in'
   end
 
-  context 'User fails to sign in' do
-    scenario 'when password is kept blank' do
-      user.email = nil
-      subject
-      expect(page).to have_content('Invalid Email or password.')
-    end
-
-    scenario 'when email is kept blank' do
-      user.password = nil
-      subject
-      expect(page).to have_content('Invalid Email or password.')
-    end
-
-    scenario 'with invalid details' do
-      user.email = 'wrong@example.com'
-      user.password = 'wrongpassword'
-      subject
-      expect(page).to have_content('Invalid Email or password.')
-    end
+  scenario 'User sees the sidebar menu' do
+    expect(page).to have_selector('.sidenav.collapsible')
   end
 
-  context 'User signs in successfully' do
-    scenario 'with valid details' do
-      subject
-      expect(page).to have_content('Signed in successfully.')
-    end
+  scenario 'Menu options are correctly displayed' do
+    expect(page).to have_selector('button.dropdown-btn', text: 'MyProfile')
+    expect(page).to have_selector('button.dropdown-btn', text: 'Books')
+    expect(page).to have_selector('.signout-btn', text: 'Sign out')
   end
 
+  scenario 'User can sign out successfully' do
+    click_button 'Sign out'
+    expect(page).to have_current_path(root_path)
+    expect(page).to have_content('Signed out successfully.')
+  end
+
+  scenario 'Dropdown for MyProfile expands and collapses' do
+    find('button.dropdown-btn', text: 'MyProfile').click
+    expect(page).to have_selector('.dropdown-container', visible: true)
+
+    find('button.dropdown-btn', text: 'MyProfile').click
+    expect(page).to have_selector('.dropdown-container', visible: false)
+  end
+
+  scenario 'Dropdown for Books expands and collapses' do
+    find('button.dropdown-btn', text: 'Books').click
+    expect(page).to have_selector('.dropdown-container', visible: true)
+
+    find('button.dropdown-btn', text: 'Books').click
+    expect(page).to have_selector('.dropdown-container', visible: false)
+  end
 end

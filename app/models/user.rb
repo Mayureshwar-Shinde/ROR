@@ -7,12 +7,12 @@ class User < ApplicationRecord
   validates :age, numericality: { only_integer: true, greater_than: 0 }
   validate :date_validation
 
-  # adding avatar
   has_one_attached :avatar
-  validates :avatar, content_type: ['image/png', 'image/jpeg', 'image/jpg'],
+
+  validates :avatar, content_type: %w[ image/png image/jpeg image/jpg ],
                                     # dimension: { width: { min: 40, max: 1600 },
-                                                  # height: { min: 40, max: 1200 }, message: 'is not given between dimension' },
-                                    size: { less_than: 10.megabytes , message: 'is too large' }
+                                    #               height: { min: 40, max: 1200 }, message: 'is not given between dimensions (1200 x 1600)' },
+                                    size: { less_than: 10.megabytes , message: 'size should be less than 10mb' }
 
   private
 

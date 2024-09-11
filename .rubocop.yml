@@ -3,6 +3,12 @@ require: rubocop-rails
 AllCops:
   DisabledByDefault: true
   SuggestExtensions: false
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
 
 # checks the indentation of the right side of the multi-line assignment
 Layout/AssignmentIndentation:
@@ -77,8 +83,6 @@ Naming/ClassAndModuleCamelCase:
 # checks for the usage of snake case for file names
 Naming/FileName:
   Enabled: true
-  Exclude:
-    - 'Rakefile.rb'
 
 # checks for the usage of snake case for methods names
 Naming/MethodName:
@@ -107,19 +111,17 @@ Style/HashSyntax:
 # checks for the usage of underscores for large numeric values
 Style/NumericLiterals:
   Enabled: true
-  Exclude:
-    - 'db/schema.rb'
 
 # checks for the consistent use of string literals (double quotes for non-interpolated strings, single quotes for interpolated strings)
 Style/StringLiterals:
   Enabled: true
   Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
     - 'app/mailers/application_mailer.rb'
-    - 'bin/bundle'
-    - 'bin/**/*'
-    - 'config/**/*'
     - 'config.ru'
-    - 'db/**/*'
     - 'spec/rails_helper.rb'
+
+Style/SymbolArray:
+  Enabled: true
+
+Style/WordArray:
+  Enabled: true

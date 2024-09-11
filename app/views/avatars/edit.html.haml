@@ -5,7 +5,6 @@
     = image_tag (current_user.avatar), :style => "width:170px; height:170px; object-fit:cover; border: solid gray 1px; border-radius:10%; margin-left: 209px;"
     %br
     %br
-    = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger', method: :delete, style: 'margin-left:235px'
   - else
     .text-center
       %i.fa.fa-user.p-4{style: 'font-size: 100px; border: solid gray 1px; border-radius: 10px;'}
@@ -14,13 +13,16 @@
     - if flash[:error]
       %ul
       - flash[:error].each do |e|
-        %li= e
-
-  = form_with(model: @user, url: avatar_path) do |form|
+        %li{style: 'list-style-type: none;'}= e
+  
+  %br
+  = form_with(model: current_user, url: avatar_path) do |form|
     .form-group
-      = form.label :avatar
       = form.file_field :avatar, class: 'form-control'
     %br
     = form.submit 'Upload Avatar', class: "form-control btn btn-primary"
+  - if current_user.avatar.attached?
+    %br
+    = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger form-control', method: :delete
 %br
 %br

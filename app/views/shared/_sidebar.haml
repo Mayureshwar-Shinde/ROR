@@ -23,9 +23,10 @@
     %a{href: '#'} Books
     %A{href: '#'} Create new book
 
-  = button_to destroy_user_session_path, method: :delete, class: 'signout-btn', data: { turbo_confirm: 'Are you sure you want to sign out?' } do
+  = button_to destroy_user_session_path, method: :delete, class: 'signout-btn', form: { data: { turbo_confirm: 'Are you sure you want to sign out?' } } do
     %i.fa.fa-power-off
     Sign out
+  %br
   %br
 
 = javascript_include_tag ('sidebar.js')

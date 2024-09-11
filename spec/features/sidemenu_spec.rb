@@ -17,7 +17,7 @@ RSpec.feature 'Sidebar Menu', type: :feature do
   scenario 'Menu options are correctly displayed' do
     expect(page).to have_selector('button.dropdown-btn', text: 'MyProfile')
     expect(page).to have_selector('button.dropdown-btn', text: 'Books')
-    expect(page).to have_selector('.signout-container', text: 'Sign out')
+    expect(page).to have_selector('.signout-btn', text: 'Sign out')
   end
 
   scenario 'User can sign out successfully' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  let(:user) { create(:user) }
+  let!(:user) { build(:user) }
 
   context 'Should not be valid' do
     it 'when first_name is not present' do
@@ -36,9 +36,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'when email is already been taken' do
-      user2 = build(:user)
-      user2.email = user.email
-      expect(user2).not_to be_valid
+      user2 = create(:user)
+      user.email = user2.email
+      expect(user).not_to be_valid
     end
 
   end
