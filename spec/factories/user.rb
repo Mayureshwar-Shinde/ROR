@@ -7,7 +7,7 @@ FactoryBot.define do
     date_of_birth { Faker::Date.birthday }
     age { Faker::Number.between(from: 18, to: 99) }
     email { Faker::Internet.email }
-    password { Faker::Internet.password(min_length: 8) }
+    password { 'password' }
     password_confirmation { password }
 
     after(:create) do |user|
