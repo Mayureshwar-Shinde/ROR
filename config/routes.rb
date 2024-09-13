@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   # user with devise
   devise_for :users, controllers: { registrations: 'users/registrations' }
-
   # avatar
   resource :avatar, only: [:edit, :update, :destroy]
+  # cases
+  resources :cases, only: %i[new create]
 end

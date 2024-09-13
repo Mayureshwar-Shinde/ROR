@@ -14,7 +14,7 @@ RSpec.feature 'Sidebar Menu', type: :feature do
 
   scenario 'Menu options are correctly displayed' do
     expect(page).to have_selector('button.dropdown-btn', text: 'MyProfile')
-    expect(page).to have_selector('button.dropdown-btn', text: 'Books')
+    expect(page).to have_selector('button.dropdown-btn', text: 'Cases')
     expect(page).to have_selector('.signout-btn', text: 'Sign out')
   end
 
@@ -32,11 +32,11 @@ RSpec.feature 'Sidebar Menu', type: :feature do
     expect(page).to have_selector('.dropdown-container', visible: false)
   end
 
-  scenario 'Dropdown for Books expands and collapses' do
-    find('button.dropdown-btn', text: 'Books').click
+  scenario 'Dropdown for Cases expands and collapses' do
+    find('button.dropdown-btn', text: 'Cases').click
     expect(page).to have_selector('.dropdown-container', visible: true)
 
-    find('button.dropdown-btn', text: 'Books').click
+    find('button.dropdown-btn', text: 'Cases').click
     expect(page).to have_selector('.dropdown-container', visible: false)
   end
 end
