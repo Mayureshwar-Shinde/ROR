@@ -17,7 +17,7 @@ RSpec.feature 'CaseIndex', type: :feature do
     cases.each do |c|
       expect(page).to have_content(c.title)
       expect(page).to have_content(c.case_number)
-      expect(page).to have_content(c.status)
+      expect(page).to have_content(c.status.gsub('_', ' ').capitalize)
     end
   end
 
