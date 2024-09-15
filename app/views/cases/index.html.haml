@@ -1,58 +1,171 @@
 = stylesheet_link_tag('paginator.css')
 
-.container-fluid.row
-  .col-md-10.mx-auto.case-card.shadow-sm{style: 'background-color: rgba(255,255,255,0.5)'}
-    .display-6 Cases
-    %hr.border-2
-    = form_for :filter, url: cases_path, method: :get do |form|
-      = form.label :status
-      = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
-      = form.button(type: 'submit', class: 'btn btn-success') do
-        %i.fa.fa-filter
-        Filter
-
-    %div.m-4
-    %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
-      %thead.table-dark
-        %th= link_to 'Case no', sort: "case_number"
-        %th= link_to 'Title', sort: 'title'
-        %th= link_to 'Reported By', sort: 'first_name'
-        - if case_manager_signed_in?
-          %th= link_to 'Assigned To', sort: 'assigned_to'
-        %th= link_to 'Status', sort: 'status'
-        %th= link_to 'Created At', sort: 'created_at'
-        %th= link_to 'Updated At', sort: 'updated_at'
+.container-fluid.p-5.pt-0
+  .display-6 Cases
+  %hr.border-secondary.border-2
+  = form_for :filter, url: cases_path, method: :get do |form|
+    = form.label :status
+    = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
+    = form.button(type: 'submit', class: 'btn btn-success') do
+      %i.fa.fa-filter
+      Filter
+  .table-responsive
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= link_to 'Case no', sort: "case_number"
+          %th= link_to 'Title', sort: 'title'
+          %th= link_to 'Reported By', sort: 'first_name'
+          - if case_manager_signed_in?
+            %th= link_to 'Assigned To', sort: 'assigned_to'
+          %th= link_to 'Status', sort: 'status'
+          %th= link_to 'Updated At', sort: 'updated_at'
+        %br
       %tbody
         - @cases.each do |c|
           %tr
             %td
-              %a{href: case_path(c)}
-                = c.case_number
-            %td= c.title
+              %a{href: case_path(c)}= c.case_number
+            %td
+              %strong= c.title
+              %div.small.text-muted Created: #{c.created_at.strftime("%d %b %y")}
             %td= "#{c.user.first_name} #{c.user.last_name}"
             - if case_manager_signed_in?
               %td
                 - if c.assigned_to_id.nil?
-                  Not assigned
+                  %span.text-muted Not assigned
                 - else
                   = "#{c.assigned_to.first_name} #{c.assigned_to.last_name}"
             %td
-              - if c.status == 'in_progress'
-                .text-warning
-                  = c.status.capitalize
-              - elsif c.status == 'resolved'
-                .text-success
-                  = c.status.capitalize
-              - elsif c.status == 'open'
-                .text-danger
-                  = c.status.capitalize
+              - case c.status
+              - when 'in_progress'
+                %span.badge.bg-warning.text-dark In Progress
+              - when 'resolved'
+                %span.badge.bg-success Resolved
+              - when 'open'
+                %span.badge.bg-danger Open
               - else
-                .text-secondary
-                  = c.status.capitalize
-            %td= c.created_at.strftime("%d %b %y, %l:%M%P")
-            %td= c.updated_at.strftime("%d %b %y, %l:%M%P")
-%br
-%div.pagination-container
-  .digg_pagination
-    = will_paginate @cases, :container => false
-%br
+                %span.badge.bg-secondary Closed
+            %td
+              %small.text-muted= time_ago_in_words(c.updated_at) + " ago"
+  %br
+  %div.pagination-container
+    .digg_pagination
+      = will_paginate @cases, container: false
+
+
+
+
+
+
+
+
+
+
+
+
+-#
+          ************************************************
+          .container-fluid.row
+            .col-md-10.mx-auto.case-card.shadow-sm{style: 'background-color: rgba(255,255,255,0.5)'}
+              .display-6 Cases
+              %hr.border-2
+              = form_for :filter, url: cases_path, method: :get do |form|
+                = form.label :status
+                = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
+                = form.button(type: 'submit', class: 'btn btn-success') do
+                  %i.fa.fa-filter
+                  Filter
+
+              %div.m-4
+              %table.table.table-responsive.table-bordered.rounded-3.overflow-hidden
+                %thead.table-dark
+                  %th= link_to 'Case no', sort: "case_number"
+                  %th= link_to 'Title', sort: 'title'
+                  %th= link_to 'Reported By', sort: 'first_name'
+                  - if case_manager_signed_in?
+                    %th= link_to 'Assigned To', sort: 'assigned_to'
+                  %th= link_to 'Status', sort: 'status'
+                  %th= link_to 'Created At', sort: 'created_at'
+                  %th= link_to 'Updated At', sort: 'updated_at'
+                %tbody
+                  - @cases.each do |c|
+                    %tr
+                      %td
+                        %a{href: case_path(c)}
+                          = c.case_number
+                      %td= c.title
+                      %td= "#{c.user.first_name} #{c.user.last_name}"
+                      - if case_manager_signed_in?
+                        %td
+                          - if c.assigned_to_id.nil?
+                            Not assigned
+                          - else
+                            = "#{c.assigned_to.first_name} #{c.assigned_to.last_name}"
+                      %td
+                        - if c.status == 'in_progress'
+                          .text-warning
+                            = c.status.capitalize
+                        - elsif c.status == 'resolved'
+                          .text-success
+                            = c.status.capitalize
+                        - elsif c.status == 'open'
+                          .text-danger
+                            = c.status.capitalize
+                        - else
+                          .text-secondary
+                            = c.status.capitalize
+                      %td= c.created_at.strftime("%d %b %y, %l:%M%P")
+                      %td= c.updated_at.strftime("%d %b %y, %l:%M%P")
+          %br
+          %div.pagination-container
+            .digg_pagination
+              = will_paginate @cases, :container => false
+          %br
+
+
+
+
+
+
+        ***************************************************
+        = stylesheet_link_tag('paginator.css')
+
+        .container-fluid
+          .display-6 Cases
+          %hr.border-2
+          = form_for :filter, url: cases_path, method: :get do |form|
+            = form.label :status
+            = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
+            = form.button(type: 'submit', class: 'btn btn-success') do
+              %i.fa.fa-filter
+              Filter
+
+          .row
+            - @cases.each do |c|
+              .col-md-6
+                .card.mb-4.shadow-sm
+                  .card-header.d-flex.justify-content-between.align-items-center
+                    %span Case ##{c.case_number}
+                    - if c.status == 'in_progress'
+                      %span.badge.bg-warning.text-dark In Progress
+                    - elsif c.status == 'resolved'
+                      %span.badge.bg-success Resolved
+                    - elsif c.status == 'open'
+                      %span.badge.bg-danger Open
+                    - else
+                      %span.badge.bg-secondary Closed
+                  .card-body
+                    %h5.card-title= c.title
+                    %p.card-text
+                      Reported by: #{c.user.first_name} #{c.user.last_name}
+                      %br/
+                      Created At: #{c.created_at.strftime("%d %b %y, %l:%M%P")}
+                      %br/
+                      Updated At: #{c.updated_at.strftime("%d %b %y, %l:%M%P")}
+                      - if case_manager_signed_in? && c.assigned_to_id
+                        Assigned to: #{c.assigned_to.first_name} #{c.assigned_to.last_name}
+                      - elsif case_manager_signed_in?
+                        Not Assigned
+                  .card-footer.text-muted
+                    %a{href: case_path(c), class: 'btn btn-outline-primary btn-sm'} View Details

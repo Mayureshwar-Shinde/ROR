@@ -1,5 +1,6 @@
 = stylesheet_link_tag('homepage.css')
-.card.shadow{class: "#{user_signed_in? ? 'signed-in' : ''}"}
+
+.card.shadow-sm{class: "#{user_signed_in? ? 'signed-in' : ''}"}
   %div.m-2.display-2 
     Welcome
     - if user_signed_in?

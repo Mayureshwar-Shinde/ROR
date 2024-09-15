@@ -1,13 +1,12 @@
-.case-card.mx-auto.shadow{style: 'width: 700px;'}
+.case-card.mx-auto.shadow-sm{style: 'max-width: 700px;'}
   %h2 Update Avatar
   %hr.mb-4
   - if current_user.avatar.attached?
-    = image_tag (current_user.avatar), :style => "width:170px; height:170px; object-fit:cover; border: solid gray 1px; border-radius:10%; margin-left: 209px;"
-    %br
+    = image_tag (current_user.avatar), :style => "width:180px; height:180px; object-fit:cover; border: solid #ccc 1px; border-radius:10%; display:block; margin: 0 auto;"
     %br
   - else
     .text-center
-      %i.fa.fa-user.p-4{style: 'font-size: 100px; border: solid gray 1px; border-radius: 10px;'}
+      %i.fa.fa-user.p-4{style: 'font-size: 100px; border: solid #ccc 1px; border-radius: 50%;'}
 
   .text-center.text-danger
     - if flash[:error]
@@ -20,9 +19,42 @@
     .form-group
       = form.file_field :avatar, class: 'form-control'
     %br
-    = form.submit 'Upload Avatar', class: "form-control btn btn-primary"
+    = form.submit 'Upload Avatar', class: "btn btn-primary w-100"
   - if current_user.avatar.attached?
     %br
-    = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger form-control', method: :delete
+    = button_to 'Delete Avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-outline-danger w-100', method: :delete
 %br
 %br
+
+
+
+
+-#
+    .case-card.mx-auto.shadow-sm{style: 'width: 700px;'}
+      %h2 Update Avatar
+      %hr.mb-4
+      - if current_user.avatar.attached?
+        = image_tag (current_user.avatar), :style => "width:170px; height:170px; object-fit:cover; border: solid gray 1px; border-radius:10%; margin-left: 209px;"
+        %br
+        %br
+      - else
+        .text-center
+          %i.fa.fa-user.p-4{style: 'font-size: 100px; border: solid gray 1px; border-radius: 10px;'}
+
+      .text-center.text-danger
+        - if flash[:error]
+          %ul
+          - flash[:error].each do |e|
+            %li{style: 'list-style-type: none;'}= e
+      
+      %br
+      = form_with(model: current_user, url: avatar_path) do |form|
+        .form-group
+          = form.file_field :avatar, class: 'form-control'
+        %br
+        = form.submit 'Upload Avatar', class: "form-control btn btn-primary"
+      - if current_user.avatar.attached?
+        %br
+        = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger form-control', method: :delete
+    %br
+    %br
