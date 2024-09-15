@@ -29,6 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    redirect_to root_path, alert: 'You need to signin or signup before continuing!' unless user_signed_in?
+    redirect_to root_path, alert: 'You need to sign in or sign up before continuing.' unless user_signed_in?
   end
 end
