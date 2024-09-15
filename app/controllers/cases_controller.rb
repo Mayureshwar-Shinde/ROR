@@ -1,4 +1,5 @@
 class CasesController < ApplicationController
+  before_action :authenticate_user!
   before_action :authenticate_case_manager!, only: %i[new create]
 
   def new
@@ -17,12 +18,10 @@ class CasesController < ApplicationController
   def index
     if case_manager_signed_in?
       @cases = Case.paginate(page: params[:page], per_page: 10)
-    elsif dispute_analyst_signed_in?
-      @cases = Case.where(assigned_to: current_dispute_analyst).paginate(page: params[:page], per_page: 10)
     else
-      return redirect_to root_path, alert: 'You need to singin or signup before continuing!'
+      @cases = Case.where(assigned_to: current_dispute_analyst).paginate(page: params[:page], per_page: 10)
     end
-      @cases = @cases.where(status: params[:filter][:status]) if params[:filter].present? && !(params[:filter][:status]).empty?
+    @cases = @cases.where(status: params[:filter][:status]) if params[:filter].present? && !(params[:filter][:status]).empty?
     if params[:sort] == 'first_name'
       @cases = @cases.includes(:user).order("users.first_name")
     elsif params[:sort] == 'assigned_to'
