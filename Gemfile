@@ -86,3 +86,6 @@ gem "sassc-rails"
 # avatar validations
 gem 'active_storage_validations'
 gem 'mini_magick'
+
+# adding pagination
+gem 'will_paginate', '~> 4.0'

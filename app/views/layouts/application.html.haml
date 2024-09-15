@@ -25,9 +25,9 @@
     - else
       = render "shared/homepage_navbar"
 
-    .alert-notice-wrapper{class: (@user_signed_in ? "main-content" : "")}
+    .alert-notice-wrapper{class: (user_signed_in? ? "main-content" : "")}
       - notice = flash[:notice] if flash[:notice]
       %p.notice.text-center= notice
       %p.alert.text-center= alert
-    %div{ class: (@user_signed_in ? "main-content" : "") }
+    %div{ class: (user_signed_in? ? "main-content" : "") }
       = yield

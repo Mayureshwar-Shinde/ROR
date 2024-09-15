@@ -12,7 +12,7 @@
     MyProfile
     %i.fa.fa-caret-down
   .dropdown-container
-    %a{href: edit_dispute_analysts_avatar_path} Update Avatar
+    %a{href: edit_avatar_path} Update Avatar
     %a{href: edit_dispute_analyst_registration_path} Update personal data
 
   %button.dropdown-btn
@@ -20,7 +20,7 @@
     Cases
     %i.fa.fa-caret-down
   .dropdown-container
-    %a{href: '#'} List all Cases
+    %a{href: cases_path} List all Cases
 
   = button_to destroy_dispute_analyst_session_path, method: :delete, class: 'signout-btn', form: { data: { turbo_confirm: 'Are you sure you want to sign out?' } } do
     %i.fa.fa-power-off

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :generate_current_user_instance
+  helper_method :current_user, :user_signed_in?
 
   protected
   
@@ -18,11 +18,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def generate_current_user_instance
-    @current_user = nil
-    @user_signed_in = false
-    @user_signed_in = true if case_manager_signed_in? || dispute_analyst_signed_in?
-    @current_user = current_case_manager unless current_case_manager.nil?
-    @current_user = current_dispute_analyst unless current_dispute_analyst.nil?
+  def current_user
+    user = current_case_manager
+    user = current_dispute_analyst if dispute_analyst_signed_in?
+    user
+  end
+
+  def user_signed_in?
+    !current_user.nil?
   end
 end

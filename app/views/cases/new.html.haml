@@ -1,12 +1,5 @@
-.case-card.mx-auto.shadow{style: 'width: 700px;'}
-  .text-danger
-    - if @case.errors.any?
-      %h4 #{@case.errors.count} errors prohibited this case from being saved:
-      %ul
-      - @case.errors.full_messages.each do |message|
-        %li= message
-      %br
-
+.case-card.mx-auto.shadow-sm{style: 'width: 700px;'}
+  = render 'shared/error_messages', resource: @case
   %h2 Create Case
   %hr.mb-5
   = form_with model: @case do |form|

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "avatars/edit"
 
   apipie
   namespace :api do
@@ -14,20 +15,13 @@ Rails.application.routes.draw do
     registrations: 'case_managers/registrations',
     sessions: 'case_managers/sessions'
   }
-
   devise_for :dispute_analysts, controllers: {
     registrations: 'dispute_analysts/registrations',
     sessions: 'dispute_analysts/sessions'
   }
 
-  resources :cases, only: %i[new create]
+  resource :avatar, only: %i[edit update destroy]
 
-  namespace :case_managers do
-    resource :avatar, only: %i[edit update destroy]
-  end
-
-  namespace :dispute_analysts do
-    resource :avatar, only: %i[edit update destroy]
-  end
+  resources :cases
 
 end

@@ -27,6 +27,13 @@ body {
 // login, register and editprofile
 .case-card {
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 7px;
+  border-radius: 10px;
   padding: 3rem;
+}
+
+
+/*table headers*/
+th a{
+  text-decoration: none;
+  color:  white;
 }
