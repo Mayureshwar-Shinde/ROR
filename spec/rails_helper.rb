@@ -1,5 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'support/json_helper'
+require 'support/session_registration_helper'
+require 'support/clean_test_database'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -66,5 +70,9 @@ RSpec.configure do |config|
   # adding factorybot methods
   config.include FactoryBot::Syntax::Methods
 
-  config.include Devise::Test::IntegrationHelpers, type: :feature
+  # config.include Devise::Test::IntegrationHelpers, type: :feature
+
+  # clean test database before running specs
+  reset_data
+
 end

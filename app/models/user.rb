@@ -16,6 +16,9 @@ class User < ApplicationRecord
 
   has_many :cases, dependent: :destroy
 
+  enum role_type: { case_manager: 1, dispute_analyst: 2 }
+  enum status: { active: 1, suspended: 2 }
+
   private
 
   def date_validation

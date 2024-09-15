@@ -16,12 +16,18 @@
     %link{href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css", rel: "stylesheet"}/
 
   %body
-    - if user_signed_in?
-      = render "shared/sidebar"
-    = render "shared/navbar"
+    - if case_manager_signed_in?
+      = render "case_managers/navbar"
+      = render "case_managers/sidebar"
+    - elsif dispute_analyst_signed_in?
+      = render "dispute_analysts/navbar"
+      = render "dispute_analysts/sidebar"
+    - else
+      = render "shared/homepage_navbar"
 
-    .alert-notice-wrapper{class: (user_signed_in? ? "main-content" : "")}
+    .alert-notice-wrapper{class: (@user_signed_in ? "main-content" : "")}
+      - notice = flash[:notice] if flash[:notice]
       %p.notice.text-center= notice
       %p.alert.text-center= alert
-    .div{class: (user_signed_in? ? "main-content" : "")}
+    %div{ class: (@user_signed_in ? "main-content" : "") }
       = yield

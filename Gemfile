@@ -74,6 +74,11 @@ gem 'html2haml'
 # adding linter
 gem 'rubocop-rails', require: false
 
+# api
+gem 'apipie-rails'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'active_interaction', '~> 5.3'
+
 # adding boostrap offline
 gem "bootstrap", '~> 5.3.3'
 gem "sassc-rails"

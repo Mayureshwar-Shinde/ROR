@@ -1,0 +1,28 @@
+.case-card.mx-auto.shadow{style: 'width: 700px;'}
+  %h2 Update Avatar
+  %hr.mb-4
+  - if current_dispute_analyst.avatar.attached?
+    = image_tag (current_dispute_analyst.avatar), :style => "width:170px; height:170px; object-fit:cover; border: solid gray 1px; border-radius:10%; margin-left: 209px;"
+    %br
+    %br
+  - else
+    .text-center
+      %i.fa.fa-user.p-4{style: 'font-size: 100px; border: solid gray 1px; border-radius: 10px;'}
+
+  .text-center.text-danger
+    - if flash[:error]
+      %ul
+      - flash[:error].each do |e|
+        %li{style: 'list-style-type: none;'}= e
+  
+  %br
+  = form_with(model: current_dispute_analyst, url: dispute_analysts_avatar_path) do |form|
+    .form-group
+      = form.file_field :avatar, class: 'form-control'
+    %br
+    = form.submit 'Upload Avatar', class: "form-control btn btn-primary"
+  - if current_dispute_analyst.avatar.attached?
+    %br
+    = button_to 'Delete avatar', {:controller => "avatars", :action => "destroy"}, class:'btn btn-danger form-control', method: :delete
+%br
+%br

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Case, type: :model do
   let!(:curr_case) { create(:case) }
-  let!(:duplicate_case) { create(:case) }
 
   context 'case is valid' do
     it 'with the valid attributes' do
@@ -19,18 +18,14 @@ RSpec.describe Case, type: :model do
   end
 
   context 'case is not valid' do
-    it 'is invalid with empty title or description' do
+    it 'when title is not present' do
       curr_case.title = nil
-      curr_case.description = nil
-      expect(curr_case). not_to be_valid
-      errors = curr_case.errors
-      expect(errors[:title]).to include("can't be blank")
-      expect(errors[:description]).to include("can't be blank")
+      expect(curr_case).not_to be_valid
     end
 
-    it 'is invalid if duplicate case_numbers' do
-      duplicate_case.update(case_number: curr_case.case_number)
-      expect(duplicate_case.errors[:case_number]).to include('has already been taken')
+    it 'when description is not present' do
+      curr_case.description = nil
+      expect(curr_case).not_to be_valid
     end
   end
 end

@@ -1,6 +1,6 @@
 class Case < ApplicationRecord
-  belongs_to :user
-  belongs_to :assigned_to, class_name: 'User', foreign_key: 'assigned_to_id', optional: true
+  belongs_to :user, class_name: 'CaseManager', foreign_key: 'user_id'
+  belongs_to :assigned_to, class_name: 'DisputeAnalyst', foreign_key: 'assigned_to_id', optional: true
 
   enum :status, %i[ open in_progress resolved closed ]
 

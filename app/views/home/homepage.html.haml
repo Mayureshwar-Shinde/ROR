@@ -1,10 +1,17 @@
 = stylesheet_link_tag('homepage.css')
 
-.card.shadow{class: "#{user_signed_in? ? 'signed-in' : ''}"}
+.card.shadow{class: "#{@user_signed_in ? 'signed-in' : ''}"}
   %div.m-2.display-2 
     Welcome
-    - if user_signed_in?
-      , #{current_user.first_name.capitalize}!
+    - if @user_signed_in
+      , #{@current_user.first_name.capitalize}!
     - else
-      = link_to "Login", new_user_session_path, :class => "btn btn-secondary d-block m-4"
-      = link_to "Register", new_user_registration_path, :class => "btn btn-primary d-block m-4"
+      = link_to "Case Manager Login", new_case_manager_session_path, class: "btn btn-secondary d-block m-4"
+      = link_to "Dispute Analyst Login", new_dispute_analyst_session_path, class: "btn btn-secondary d-block m-4"
+      = link_to "Register", new_case_manager_registration_path, class: "btn btn-primary d-block m-4"
+
+
+-#
+  = link_to "Dispute Analyst Login", new_dispute_analyst_session_path, :class => "btn btn-success d-block m-4"
+  = link_to "Case Manager Login", new_case_manager_session_path, :class => "btn btn-success d-block m-4"
+  = link_to "Register", new_case_manager_registration_path, :class => "btn btn-dark d-block m-4

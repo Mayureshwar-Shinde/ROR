@@ -19,6 +19,7 @@
       = form.text_area :description, class: "form-control"
       %br/
     = form.hidden_field :status, value: 'open'
+    = form.hidden_field :user_id, value: current_case_manager.id
     = form.submit "Create Case", class: 'form-control btn btn-primary'
 %br
 %br
