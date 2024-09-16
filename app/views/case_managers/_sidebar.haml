@@ -20,8 +20,8 @@
     Cases
     %i.fa.fa-caret-down
   .dropdown-container
-    %a{href: new_case_path} Create New Case
-    %a{href: cases_path} List all Cases
+    %a{href: new_case_managers_case_path} Create New Case
+    %a{href: case_managers_cases_path} List all Cases
 
   = button_to destroy_case_manager_session_path, method: :delete, class: 'signout-btn', form: { data: { turbo_confirm: 'Are you sure you want to sign out?' } } do
     %i.fa.fa-power-off

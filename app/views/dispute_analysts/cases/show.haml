@@ -1,0 +1,40 @@
+.container-fluid.row
+  .col-md-10.mx-auto.case-card.shadow-sm
+    %h3.card-header.display-6
+      Case
+      = @case.case_number
+    %hr
+    .card-body
+      %h4.card-title
+        = @case.title
+      %p.card-text{style: "font-size:15px"}
+        = @case.description  
+
+      %hr
+      %ul.list-unstyled.display-6{style: "font-size:15px;"}
+        %li 
+          %strong.d-inline Status:
+          = @case.status
+        %li
+          %strong Created by:
+          = "#{@case.user.first_name} #{@case.user.last_name}"
+        %li
+          %strong Assigned to:
+          = @case.assigned_to_id.nil? ? 'Unassigned' : "#{@case.assigned_to.first_name} #{@case.assigned_to.last_name}"
+        %li
+          %strong Created at:
+          = @case.created_at.strftime("%d %B %Y, %l:%M%P")
+        - if @case.status == 'Resolved'
+          %li
+            %strong Resolved at:
+            = @case.updated_at.strftime("%d %B %Y, %l:%M%P")
+        - else
+          %li
+            %strong Updated at:
+            = @case.updated_at.strftime("%d %B %Y, %l:%M%P")
+
+      %hr
+      .button-group
+        = link_to edit_dispute_analysts_case_path(@case), class: 'btn btn-outline-success m-2' do
+          %i.fa.fa-pen
+          Edit

@@ -42,7 +42,6 @@ RSpec.feature 'Avatar management', type: :feature do
 
   context 'Avatar Deletion' do
     scenario 'Case Manager can delete avatar successfully' do
-      visit edit_avatar_path
       click_button 'Delete Avatar'
       expect(page).to have_content('Avatar deleted successfully!')
       expect(page).to have_css('i.fa.fa-user')
@@ -52,6 +51,7 @@ RSpec.feature 'Avatar management', type: :feature do
   context 'Avatar Visibility' do
     scenario 'No avatar is present, displays default icon' do
       case_manager.avatar.purge
+      visit root_path
       expect(page).to have_css('i.fa.fa-user')
     end
 

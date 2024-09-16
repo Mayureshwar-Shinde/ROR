@@ -10,10 +10,12 @@ RSpec.feature 'CaseIndex', type: :feature do
     ]
   end
 
-  before { sign_in case_manager }
+  before do
+    sign_in case_manager
+    visit case_managers_cases_path
+  end
 
   scenario 'Displays all cases on the index page' do
-    visit cases_path
     cases.each do |c|
       expect(page).to have_content(c.title)
       expect(page).to have_content(c.case_number)
@@ -22,21 +24,20 @@ RSpec.feature 'CaseIndex', type: :feature do
   end
 
   scenario 'Can sort cases by title' do
-    visit cases_path(sort: 'title')
+    visit case_managers_cases_path(sort: 'title')
     expect(page).to have_content('First Case')
     expect(page).to have_content('Second Case')
     expect(page).to have_content('Third Case')
   end
 
   scenario 'Can filter cases by status' do
-    visit cases_path(filter: { status: 'open' })
+    visit case_managers_cases_path(filter: { status: 'open' })
     expect(page).to have_content('First Case')
     expect(page).not_to have_content('Second Case')
     expect(page).not_to have_content('Third Case')
   end
 
   scenario 'Pagination displays limited cases per page' do
-    visit cases_path
     expect(page).to have_selector('.pagination-container')
   end
 end

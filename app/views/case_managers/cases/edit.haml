@@ -1,0 +1,24 @@
+.case-card.mx-auto.p-5.mb-5.shadow-sm{style: "width:700px;"}
+  = render 'shared/error_messages', resource: @case
+  %h2 Update Case
+  %hr
+  %br
+  = form_with(model: @case, url: case_managers_case_path) do |f|
+    .form-group
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
+    %br/
+    .form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control'
+    %br/
+    = f.label :assign_to
+    = f.select(:assigned_to_id,[['Unassigned', nil]] + @users.collect {|u| [ "#{u.first_name} #{u.last_name}", u.id ] }, {}, {class: "form-select"})
+    %br/
+    .form-group
+      = f.label :status
+      = f.select(:status, [['Select', "#{@case.status}"], ['Open','open'], ['Closed','closed']], {}, {class: "form-select"})
+    %br/
+    %br/
+    .text-center
+      = f.submit(class: 'form-control btn btn-primary')

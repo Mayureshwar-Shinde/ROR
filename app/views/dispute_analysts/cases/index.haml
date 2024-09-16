@@ -1,0 +1,57 @@
+= stylesheet_link_tag('paginator.css')
+
+.container-fluid.row
+  .col-md-11.mx-auto.p-5.pb-4.shadow-sm{style: 'background-color: rgba(255,255,255,0.5)'}
+    .display-6 Cases
+    %hr.border-secondary.border-2
+    = form_for :filter, url: dispute_analysts_cases_path, method: :get do |form|
+      = form.label :status
+      = form.select(:status, [['All', ''], ['Open','open'], ['In progress','in_progress'], ['Resolved','resolved'], ['Closed','closed']], {}, {class: "form-select d-inline me-4", style: "width:134px;"})
+      = form.button(type: 'submit', class: 'btn btn-success') do
+        %i.fa.fa-filter
+        Filter
+    .table-responsive
+      %table.table.table-hover
+        %thead.table-dark
+          %tr
+            %th= link_to 'Case no', sort: "case_number"
+            %th= link_to 'Title', sort: 'title'
+            %th= link_to 'Reported By', sort: 'first_name'
+            - if dispute_analyst_signed_in?
+              %th= link_to 'Assigned To', sort: 'assigned_to'
+            %th= link_to 'Status', sort: 'status'
+            %th= link_to 'Updated At', sort: 'updated_at'
+          %br/
+        %tbody
+          - @cases.each do |c|
+            %tr
+              %td
+                %a{href: dispute_analysts_case_path(c)}= c.case_number
+              %td
+                %strong= c.title
+                %div.small.text-muted Created: #{c.created_at.strftime("%d %b %y")}
+              %td= "#{c.user.first_name} #{c.user.last_name}"
+              - if dispute_analyst_signed_in?
+                %td
+                  - if c.assigned_to_id.nil?
+                    %span.text-muted Not assigned
+                  - else
+                    = "#{c.assigned_to.first_name} #{c.assigned_to.last_name}"
+              %td
+                - case c.status
+                - when 'in_progress'
+                  %span.badge.bg-warning.text-dark In Progress
+                - when 'resolved'
+                  %span.badge.bg-success Resolved
+                - when 'open'
+                  %span.badge.bg-danger Open
+                - else
+                  %span.badge.bg-secondary Closed
+              %td
+                %small.text-muted= time_ago_in_words(c.updated_at) + " ago"
+    %br/
+    %div.pagination-container
+      .digg_pagination
+        = will_paginate @cases, container: false
+%br/
+%br/

@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
 
   protected
-  
+
   def configure_permitted_parameters
-    permitted_params = %i[first_name last_name age date_of_birth phone email password password_confirmation]
+    permitted_params = %i[first_name last_name age date_of_birth email password password_confirmation]
     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(permitted_params) }
     devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(permitted_params, :current_password) }
   end
@@ -32,3 +32,4 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: 'You need to sign in or sign up before continuing.' unless user_signed_in?
   end
 end
+

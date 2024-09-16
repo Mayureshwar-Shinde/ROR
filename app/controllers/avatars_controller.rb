@@ -1,5 +1,6 @@
 class AvatarsController < ApplicationController
   before_action :authenticate_user!
+
   def update
     if params[current_user.role_type.to_sym].nil?
       flash[:error] = ['No avatar provided!']
@@ -22,4 +23,3 @@ class AvatarsController < ApplicationController
     params.require(current_user.role_type.to_sym).permit(:avatar)
   end
 end
-

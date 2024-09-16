@@ -1,18 +1,17 @@
 @import "bootstrap";
 
-
-.body-bg {
+body {
   background-color: #DFE3E6;
 }
 
 
-// when sidebar is present
+/* when sidebar is present */
 .main-content {
-  margin-left: 260px;
+  margin-left: 270px;
 }
 
 
-// alerts and notifications
+/* alerts and notifications */
 .alert-notice-wrapper {
   margin-top: 60px;
 }
@@ -24,19 +23,16 @@
 }
 
 
-// login, register and editprofile
+/* login, register and editprofile */
 .case-card {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   padding: 3rem;
-  border: 1px solid #e0e0e0;
-  border: 1px solid silver;
 }
 
 
 /*table headers*/
 th a{
-  /*font-size: 20px;*/
   text-decoration: none;
-  color: black;
+  color: white;
 }

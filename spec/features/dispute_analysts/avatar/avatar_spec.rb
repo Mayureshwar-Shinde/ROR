@@ -17,23 +17,23 @@ RSpec.feature 'Avatar management', type: :feature do
   end
 
   context 'Avatar Updation' do
-    scenario 'Dipute Analyst can update avatar with a valid image' do
+    scenario 'Dispute Analyst can update avatar with a valid image' do
       subject
       expect(page).to have_content('Avatar updated successfully!')
     end
 
-    scenario 'Dipute Analyst cannot update avatar with an empty file' do
+    scenario 'Dispute Analyst cannot update avatar with an empty file' do
       click_button 'Upload Avatar'
       expect(page).to have_content('No avatar provided!')
     end
 
-    scenario 'Dipute Analyst cannot update avatar with an invalid image format' do
+    scenario 'Dispute Analyst cannot update avatar with an invalid image format' do
       image[:path] = 'spec/features/dispute_analysts/avatar/invalid_avatar.txt'
       subject
       expect(page).to have_content('Avatar has an invalid content type')
     end
 
-    scenario 'Dipute Analyst cannot update avatar with an image exceeding the maximum dimensions' do
+    scenario 'Dispute Analyst cannot update avatar with an image exceeding the maximum dimensions' do
       image[:path] = 'spec/features/dispute_analysts/avatar/large_image.png'
       subject
       # expect(page).to have_content('Avatar is not given between dimension')
@@ -41,8 +41,7 @@ RSpec.feature 'Avatar management', type: :feature do
   end
 
   context 'Avatar Deletion' do
-    scenario 'Dipute Analyst can delete avatar successfully' do
-      visit edit_avatar_path
+    scenario 'Dispute Analyst can delete avatar successfully' do
       click_button 'Delete Avatar'
       expect(page).to have_content('Avatar deleted successfully!')
       expect(page).to have_css('i.fa.fa-user')
@@ -52,6 +51,7 @@ RSpec.feature 'Avatar management', type: :feature do
   context 'Avatar Visibility' do
     scenario 'No avatar is present, displays default icon' do
       dispute_analyst.avatar.purge
+      visit root_path
       expect(page).to have_css('i.fa.fa-user')
     end
 

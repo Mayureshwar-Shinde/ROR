@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Update Profile Management', type: :feature do
 
-  let!(:case_manager) { create(:case_manager) }
-  let!(:valid_attributes) { attributes_for(:case_manager) }
+  let!(:case_manager) { create(:user) }
+  let!(:valid_attributes) { attributes_for(:user) }
   let!(:attributes) { Hash.new }
 
   before do

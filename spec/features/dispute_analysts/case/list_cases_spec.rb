@@ -7,7 +7,7 @@ RSpec.feature 'DisputeAnalystCaseIndex', type: :feature do
 
   before do
     sign_in dispute_analyst
-    visit cases_path
+    visit dispute_analysts_cases_path
   end
 
   scenario 'Displays only cases assigned to the dispute analyst' do
@@ -16,12 +16,12 @@ RSpec.feature 'DisputeAnalystCaseIndex', type: :feature do
   end
 
   scenario 'Can sort cases by title' do
-    visit cases_path(sort: 'title')
+    visit dispute_analysts_cases_path(sort: 'title')
     expect(page).to have_content('Assigned Case')
   end
 
   scenario 'Can filter cases by status' do
-    visit cases_path(filter: { status: 'in_progress' })
+    visit dispute_analysts_cases_path(filter: { status: 'in_progress' })
     expect(page).to have_content('Assigned Case')
     expect(page).not_to have_content('Unassigned Case')
   end

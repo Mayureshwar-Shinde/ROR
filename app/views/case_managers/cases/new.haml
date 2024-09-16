@@ -2,7 +2,7 @@
   = render 'shared/error_messages', resource: @case
   %h2 Create Case
   %hr.mb-5
-  = form_with model: @case do |form|
+  = form_with(model: @case, url: case_managers_cases_path) do |form|
     .field.form-group
       = form.label :title
       = form.text_field :title, class: "form-control"
@@ -11,8 +11,6 @@
       = form.label :description
       = form.text_area :description, class: "form-control"
       %br/
-    = form.hidden_field :status, value: 'open'
-    = form.hidden_field :user_id, value: current_case_manager.id
     = form.submit "Create Case", class: 'form-control btn btn-primary'
 %br
 %br

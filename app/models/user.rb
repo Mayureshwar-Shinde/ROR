@@ -12,7 +12,8 @@ class User < ApplicationRecord
   validates :avatar, content_type: %w[ image/png image/jpeg image/jpg ],
                                     # dimension: { width: { min: 40, max: 1600 },
                                     #               height: { min: 40, max: 1200 }, message: 'is not given between dimensions (1200 x 1600)' },
-                                    size: { less_than: 10.megabytes , message: 'size should be less than 10mb' }
+                                    size: { less_than: 10.megabytes, 
+                                            message: 'size should be less than 10mb' }
 
   has_many :cases, dependent: :destroy
 

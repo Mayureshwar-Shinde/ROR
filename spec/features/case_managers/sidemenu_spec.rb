@@ -34,12 +34,12 @@ RSpec.feature 'Sidebar Menu', type: :feature do
   scenario 'Cases dropdown links lead to correct paths' do
     find('button.dropdown-btn', text: 'Cases').click
     click_link 'Create New Case'
-    expect(page).to have_current_path(new_case_path)
+    expect(page).to have_current_path(new_case_managers_case_path)
 
     visit root_path
     find('button.dropdown-btn', text: 'Cases').click
     click_link 'List all Cases'
-    expect(page).to have_current_path(cases_path)
+    expect(page).to have_current_path(case_managers_cases_path)
   end
 
   scenario 'MyProfile dropdown links lead to correct paths' do

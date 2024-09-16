@@ -1,0 +1,21 @@
+.case-card.mx-auto.p-5.mb-5.shadow-sm{style: "width:700px;"}
+  = render 'shared/error_messages', resource: @case
+  %h2 Update Case
+  %hr
+  %br
+  = form_with(model: @case, url: dispute_analysts_case_path) do |f|
+    .form-group
+      = f.label :title
+      = f.text_field :title, class: 'form-control', disabled: true
+    %br/
+    .form-group
+      = f.label :description
+      = f.text_area :description, class: 'form-control', disabled: true
+    %br/
+    .form-group
+      = f.label :status
+      = f.select(:status, [['Select', "#{@case.status}"], ['In Progress','in_progress'], ['Resolved','resolved']], {}, {class: "form-select"})
+    %br/
+    %br/
+    .text-center
+      = f.submit(class: 'form-control btn btn-primary')
